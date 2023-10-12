@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="477a7fddbc6d4f72ae48d42b1bef0e03" Name="Diagram1" ZoomLevel="59">
+        <EntityTypeShape EntityType="DBShopeeFoodModel.ChucVu" Width="1.5" PointX="3.75" PointY="11.75" />
+        <EntityTypeShape EntityType="DBShopeeFoodModel.DanhMuc" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="DBShopeeFoodModel.DonHang" Width="1.5" PointX="8.5" PointY="11.75" />
+        <EntityTypeShape EntityType="DBShopeeFoodModel.DonHangChiTiet" Width="1.5" PointX="7.5" PointY="7.5" />
+        <EntityTypeShape EntityType="DBShopeeFoodModel.HoaDon" Width="1.5" PointX="10.75" PointY="14.375" />
+        <EntityTypeShape EntityType="DBShopeeFoodModel.KhachHang" Width="1.5" PointX="3" PointY="16.75" />
+        <EntityTypeShape EntityType="DBShopeeFoodModel.NhanVien" Width="1.5" PointX="3" PointY="14.125" />
+        <EntityTypeShape EntityType="DBShopeeFoodModel.PhanQuyen" Width="1.5" PointX="6" PointY="11.5" />
+        <EntityTypeShape EntityType="DBShopeeFoodModel.SanPham" Width="1.5" PointX="5.25" PointY="6.875" />
+        <EntityTypeShape EntityType="DBShopeeFoodModel.Shop" Width="1.5" PointX="3" PointY="6.75" />
+        <EntityTypeShape EntityType="DBShopeeFoodModel.sysdiagram" Width="1.5" PointX="5.75" PointY="1.625" />
+        <EntityTypeShape EntityType="DBShopeeFoodModel.ThanhToan" Width="1.5" PointX="3" PointY="4" />
+        <EntityTypeShape EntityType="DBShopeeFoodModel.User" Width="1.5" PointX="0.75" PointY="8.5" />
+        <AssociationConnector Association="DBShopeeFoodModel.FK_PhanQuyen_ChucVu" />
+        <AssociationConnector Association="DBShopeeFoodModel.FK__SanPham__MaDM__76969D2E" />
+        <AssociationConnector Association="DBShopeeFoodModel.FK__SanPham__MaDM__778AC167" />
+        <AssociationConnector Association="DBShopeeFoodModel.FK__DonHang__MaKH__7D439ABD" />
+        <AssociationConnector Association="DBShopeeFoodModel.FK__DonHang__MaSP__7E37BEF6" />
+        <AssociationConnector Association="DBShopeeFoodModel.FK__HoaDon__MaDH__7F2BE32F" />
+        <AssociationConnector Association="DBShopeeFoodModel.FK__DonHangChi__MaSP__797309D9" />
+        <AssociationConnector Association="DBShopeeFoodModel.FK__HoaDon__MaKH__00200768" />
+        <AssociationConnector Association="DBShopeeFoodModel.FK__HoaDon__MaNV__01142BA1" />
+        <AssociationConnector Association="DBShopeeFoodModel.FK__KhachHang__MaTK__7B5B524B" />
+        <AssociationConnector Association="DBShopeeFoodModel.FK__NhanVien__MaTK__7A672E12" />
+        <AssociationConnector Association="DBShopeeFoodModel.FK_PhanQuyen_Users" />
+        <AssociationConnector Association="DBShopeeFoodModel.FK__SanPham__MaShop__787EE5A0" />
+        <AssociationConnector Association="DBShopeeFoodModel.FK__Shop__MaTK__74AE54BC" />
+        <AssociationConnector Association="DBShopeeFoodModel.FK_Orders_Customers" />
+        <EntityTypeShape EntityType="DBShopeeFoodModel.GioHang" Width="1.5" PointX="10.5" PointY="8.625" />
+        <AssociationConnector Association="DBShopeeFoodModel.FK_id_user_cart" />
+        <AssociationConnector Association="DBShopeeFoodModel.FK_MaDT_order_item" />
+        <AssociationConnector Association="DBShopeeFoodModel.FK__DonHang__MaTK__7D439ABD" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

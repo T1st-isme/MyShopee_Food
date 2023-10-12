@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Shopee_Food.Models.ChucVu>
+
+@{
+    ViewBag.Title = "Danh sách chức vụ";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+    int i = 0;
+}
+
+<p>
+    <a href="/Admin/NhanViens/Create"
+       class="btn btn-primary">Thêm chức vụ</a>
+</p>
+<div>
+    <form>
+        <select name="danhgia">
+            <option>Tất cả</option>
+            @foreach (var item in new Shopee_Food.Areas.Admin.map.mapNhanVien().DanhSach())
+            {
+                <option value="@item.Users.ChucVu.TenCV">@item.Users.ChucVu.TenCV</option>
+            }
+        </select>
+        <input name="tukhoa" value="@ViewBag.TimKiem" />
+        <button>
+            Tìm kiếm
+        </button>
+    </form>
+</div>
+<div class="card-body">
+    <table class="table table-bordered table-responsive-md table-striped">
+        <thead style="color:cadetblue">
+            <tr>
+                <th width="50px">STT</th>
+                <th style="text-align:center">Tên chức vụ</th>
+                <th width="300px">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                i++;
+                <tr>
+                    <td align="center">@i</td>
+                    <td align="center">
+                        @item.TenCV
+                    </td>
+
+                    <td>
+                        <a class="btn btn-info btn-sm" href="/Admin/ChucVus/Edit/@item.MaCV">
+                            <i class="fas fa-pencil-alt">
+                            </i>
+                            Sửa
+                        </a>
+                        <a class="btn btn-danger btn-sm" href="/Admin/ChucVus/Delete/@item.MaCV">
+                            <i class="fas fa-trash">
+                            </i>
+                            Xóa
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

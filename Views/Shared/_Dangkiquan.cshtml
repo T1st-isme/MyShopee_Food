@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="~/Content/css/Shop/Global.css" />
+    <link rel="stylesheet" href="~/Content/css/Shop/NgKQun.css" />
+    <script src="https://kit.fontawesome.com/c0b1a641d5.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+             width: 100%;
+            height: 100%;
+        }
+
+        .header {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            background-color: white;
+            /*width: 80px;*/
+            height: 80px;
+        }
+
+            .header .main_header {
+                width: 100%;
+                display: flex;
+                justify-content: space-around;
+                align-content: center;
+                align-items: center;
+            }
+
+        .nav_header ul li {
+            margin-right: 15px;
+            font-size: 17px;
+        }
+
+            .nav_header ul li:hover {
+                color: orangered;
+            }
+
+        .container {
+        }
+    </style>
+</head>
+<body>
+    <div class="header" style=" box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+        <div class="main_header">
+            <img src="https://shopeefood.vn/app/assets/img/shopeefoodvn.png?4aa1a38e8da801f4029b80734905f3f7" style="object-fit:cover; width: 150px" />
+            
+            <div class="nav_header">
+                <ul style="display: flex;margin-right: 550px;list-style:none">
+                    <li style="color: orangered;">Đồ Ăn  |</li>
+                    <li> Đồ uống</li>
+                </ul>
+            </div>
+            <div class="">
+                <div class="header-search__expand">
+                    @using (Html.BeginForm("Index_user", "SanPhams_new", FormMethod.Get))
+                    {
+                        <div class="wrap">
+                            <div class="header-search-btn">
+                                <td class="header-search-btn--searchTerm">
+                                    <div style="position: relative; top: 15px; right: 10px;">
+                                        @Html.TextBox("SearchString", null, new { @class = "form-control", @placeholder = "Nhập sản phẩm Cần Tìm" })
+                                    </div>
+                                    <button style=" position: relative; top: -18px; right: 50px;" class="header-search-btn--searchButton" type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <a href="~/Users_new/LoginCus" class="login-button" style="padding: 8px 16px; border: 1px solid orangered; color: orangered; border-radius: 5px; cursor: pointer; top: -40px; right: -200px;position:relative">Đăng nhập</a>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content" style=" margin-left: 110px;">
+        @RenderBody()
+        <hr />
+        <footer>
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

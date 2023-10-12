@@ -1,0 +1,47 @@
+﻿@model Shopee_Food.Models.Shop
+@{
+    ViewBag.Title = "Thông tin shop";
+    Layout = null;
+}
+<style>
+    body{
+        margin-left:140px;
+    }
+    #text_ {
+        padding-right: 1135px;
+        border-radius: 10px;
+    }
+    }
+    #po{
+        margin-left:50px;
+    }
+    span{
+        font-size:20px;
+        margin-right:350px;
+    }
+    #btn{
+
+    }
+</style>
+<p>
+    @Html.ActionLink("Create New", "Create","SanPhams_new")
+</p>
+<body style="background-color:darkgrey;border-radius:10px">
+    
+    @using (Html.BeginForm("Details_Shop", "Shops_new", FormMethod.Post))
+    {
+        <input type="hidden" name="id" value="@ViewBag.Shop.MaShop" />
+        <input type="text" name="keyword" id="text_"/>
+        <input type="submit" value="Tìm kiếm"  id="btn"/>
+    }
+<div style="background-color:white;width:90%;height:1000px">
+    <h3 style="margin-left:30px">Các sản phẩm trong cửa hàng:</h3>  
+    @foreach (var product in ViewBag.Products)
+    {
+        <div id="po">
+         <span>@product.TenSP</span>    -   <span>@product.HinhSP</span>    -     <span>@product.DonGia   </span>        <a href="@Url.Action("Edit", "SanPhams_new", new { id = product.MaSP })">Sửa</a>        <a href="@Url.Action("Delete", "SanPhams_new", new { id = product.MaSP })">Xóa</a>
+
+        </div>
+    }
+</div>
+</body>

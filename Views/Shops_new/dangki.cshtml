@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "dangki";
+    Layout = "~/Views/Shared/_Dangkiquan.cshtml";
+}
+<style>
+    #shop {
+        background-color: orangered;
+        width:100px;
+        height:30px;
+        margin:30px 30px 30px 30px;
+    }
+    #a_shop{
+        padding-top:20px;
+        margin-left:30px;
+        color:white;
+    }
+</style>
+
+<div id="container_main">
+    <h1 id="h1-style" style="font-weight: bold;width:300px">ĐĂNG KÍ QUÁN</h1>
+    <div id="head-content">
+        <a id="color-a" href="~/Shops_new/Create">Tạo quán mới</a>
+
+    </div>
+  
+
+    <div id="background-c">
+        <div id="center_main">
+        </div>
+        <div id="center-2">
+            
+            <div id="center-child">
+                <a id="color-a-2" style="margin-left: 30px;margin-top:20px" href="~/Shops_new/Create">Tạo quán mới</a>
+            </div>
+            <div id="shop">
+                <a id="a_shop" style="color:white;"> @Html.ActionLink("Shop", "GetOrdersByShop", "Shops_new", new { IDCus = @HttpContext.Current.Session["IDCus"].ToString() }, null)</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+

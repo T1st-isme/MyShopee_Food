@@ -1,0 +1,40 @@
+﻿@model Shopee_Food.Models.ShopUserModel
+
+<div>
+    <h4>User Information</h4>
+    <div>
+        <strong>Tài khoản:</strong>
+    </div>
+    <div>
+        <strong>Họ tên:</strong>
+        <span>@Model.User.HoTen</span>
+    </div>
+    <div>
+        <strong>Địa chỉ:</strong>
+        <span>@Model.User.DiaChi</span>
+    </div>
+</div>
+
+<div>
+    <h4>Shop Information</h4>
+    @if (Model.Shop != null)
+    {
+        <div>
+            <strong>Tên Shop:</strong>
+            <span>@Model.Shop.TenShop</span>
+        </div>
+        <div>
+            <strong>Tình trạng:</strong>
+            <span>@Model.Shop.TinhTrang</span>
+        </div>
+        <div>
+            <strong>Số lượng sản phẩm:</strong>
+            <span>@Model.Shop.SoLuongSanPham</span>
+        </div>
+ 
+    }
+    else
+    {
+        <p>Shop không tồn tại cho User này.</p>
+    }
+</div>

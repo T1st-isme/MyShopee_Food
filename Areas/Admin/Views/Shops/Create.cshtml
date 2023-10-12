@@ -1,0 +1,102 @@
+﻿@model Shopee_Food.Areas.Admin.ShopVM
+
+@{
+    ViewBag.Title = "Thêm shop mới";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content">
+        <div class="row">
+            <div class="col-md">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Thêm thông tin shop</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <h6 class="control-label col-md-2" style="font-weight:bold">Tên shop</h6>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.TenShop, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.TenShop, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h6 class="control-label col-md-2" style="font-weight:bold">Địa chỉ</h6>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h6 class="control-label col-md-2" style="font-weight:bold">SĐT</h6>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h6 class="control-label col-md-2" style="font-weight:bold">Ảnh bìa</h6>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.AnhBia, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.AnhBia, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <h6 class="control-label col-md-2" style="font-weight:bold">Ảnh đại diện</h6>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.AnhDaiDien, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.AnhDaiDien, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <h6 class="control-label col-md-2" style="font-weight:bold">Ảnh thực tế</h6>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.AnhThucTe, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.AnhThucTe, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <h6 class="control-label col-md-2" style="font-weight:bold">Tài khoản</h6>
+                            <div class="col-md-10">
+                                @Html.DropDownList("MaTK", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.MaTK, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+        <div>
+            <div class="row">
+                <div class="col">
+                    <a class="btn btn-secondary" href="/Admin/Shops/Index">
+                        <i class="fas fa-long-arrow-alt-left">
+                        </i>
+                        Quay về
+                    </a>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Thêm
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}

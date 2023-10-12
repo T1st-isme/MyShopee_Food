@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Shopee_Food.Models.Shop>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutDangKi.cshtml";
+}
+
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenShop)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DanhGia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TinhTrang)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoLuongSanPham)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DoanhThu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AnhBia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AnhDaiDien)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AnhThucTe)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HinhMenu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.TaiKhoan)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenShop)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DanhGia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TinhTrang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuongSanPham)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoanhThu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnhBia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnhDaiDien)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnhThucTe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HinhMenu)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MaShop }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MaShop }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MaShop })
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Shopee_Food.Models.SanPham>
+
+@{
+    ViewBag.Title = "Đồ ăn";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+<style>
+
+    .row {
+        display: flex;
+        margin: 50px;
+    }
+
+    .card {
+        background-color: white;
+        width: 250px;
+        height: 400px;
+        margin-top: 1em;
+        align-items: center;
+        margin-right: 20px;
+        border-radius: 10px;
+        box-shadow: 100px 100px 100px rgba(110, 107, 107, 0.08);
+    }
+
+    #font-chu {
+        font-size: 18px;
+        text-align: center;
+        color: black;
+        width: 200px;
+        margin: 20px;
+        padding-top: 20px;
+    }
+
+    #slideshow {
+        margin-left: 5%;
+    }
+</style>
+
+<div id="slideshow">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+
+            <a href="/Shops_new/Details/@item.MaShop" class="btn btn-dafault">
+
+                <div class="card">
+
+                    <div id="font-chu">
+                        <img src="~/Content/images/hinh21.jpeg" height="200" width="200" />
+                        <p class="font-text">@Html.DisplayFor(model => item.TenSP)</p>
+                        <p class="font-text">@Html.DisplayFor(model => item.Loai)</p>
+                        <p class="font-text">@Html.DisplayFor(model => item.Shop.TenShop)</p>
+                        <p class="font-text">@Html.DisplayFor(model => item.DonGia)</p>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+</div>

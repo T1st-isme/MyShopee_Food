@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="stylesheet" href="~/Content/css/Shop/dkb1.css" />
+    <link rel="stylesheet" href="~/Content/css/Shop/Global.css" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<style>
+    ul {
+        list-style-type: none;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        margin-left: 400px;
+        padding: 0;
+        overflow: hidden;
+        width: 1300px;
+       
+        padding-left: 150px;
+        border-radius: 10px;
+    }
+
+    li {
+        float: left;
+        margin-right: 100px;
+    }
+
+        li a {
+            display: block;
+            color: rgb(0, 0, 0);
+            text-align: center;
+            padding: 14px 25px;
+            text-decoration: none;
+        }
+
+            li a:hover:not(.active) {
+                background-color: #efab0c;
+            }
+
+    .active {
+        background-color: #efab0c;
+    }
+</style>
+<body>
+
+    <div>
+        <div>
+            <ul>
+                <li><a class="active" href="#">Thông tin quán</a></li>
+                <li><a href="#">Ảnh chụp menu</a></li>
+                <li><a href="#">Thông tin chủ quán</a></li>
+                <li><a href="#">Thông tin thanh toán</a></li>
+            </ul>
+        </div>
+        <div>
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>

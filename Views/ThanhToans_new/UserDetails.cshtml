@@ -1,0 +1,41 @@
+﻿@model Shopee_Food.Models.User
+
+<h2>User Details</h2>
+
+@if (ViewBag.User != null)
+{
+    <p><strong>Tên tài khoản:</strong> @ViewBag.User.TaiKhoan</p>
+    <p><strong>Mật khẩu:</strong> @ViewBag.User.MatKhau</p>
+    <p><strong>Họ tên:</strong> @ViewBag.User.HoTen</p>
+    <p><strong>Địa chỉ:</strong> @ViewBag.User.DiaChi</p>
+    <p><strong>Số điện thoại:</strong> @ViewBag.User.SDT</p>
+    <p><strong>Email:</strong> @ViewBag.User.Email</p>
+    <p><strong>Giới tính:</strong> @ViewBag.User.GioiTinh</p>
+}
+
+@if (ViewBag.ThanhToan != null)
+{
+    <h3>Thông tin thanh toán</h3>
+    <p><strong>Số tài khoản:</strong> @ViewBag.ThanhToan.STK</p>
+    <p><strong>Phương thức thanh toán:</strong> @ViewBag.ThanhToan.PTTT</p>
+    <!-- Hiển thị các thông tin khác về thanh toán tùy ý -->
+}
+
+@if (ViewBag.Shop != null)
+{
+    <h3>Thông tin shop</h3>
+    <p><strong>Tên shop:</strong> @ViewBag.Shop.TenShop</p>
+    <p><strong>Đánh giá:</strong> @ViewBag.Shop.DanhGia</p>
+    <p><strong>Hình Menu:</strong> @ViewBag.Shop.HinhMenu</p>
+    <p><strong>Hình đại diện:</strong> @ViewBag.Shop.AnhDaiDien</p>
+    <p><strong>Hình thực tế:</strong> @ViewBag.Shop.AnhThucTe</p>
+    <p><strong>Mô tả:</strong> @ViewBag.Shop.MoTa</p>
+    <p><strong>Tình Trạng:</strong> @ViewBag.Shop.TinhTrang</p>
+    <p><strong>Đánh giá:</strong> @ViewBag.Shop.DanhGia</p>
+    <p><strong>Địa chỉ:</strong> @ViewBag.Shop.DanhGia</p>
+ 
+    <!-- Hiển thị các thông tin khác về shop tùy ý -->
+}
+
+
+ 

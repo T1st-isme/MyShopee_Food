@@ -1,0 +1,72 @@
+﻿@model Shopee_Food.Models.Shop
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutDangKi.cshtml";
+}
+
+<h2>Create</h2>
+
+
+<h2>@ViewBag.Title</h2>
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div>
+        @Html.LabelFor(model => model.TenShop, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        @Html.EditorFor(model => model.TenShop, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.TenShop, "", new { @class = "text-danger" })
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.AnhBia, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        @Html.EditorFor(model => model.AnhBia, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.AnhBia, "", new { @class = "text-danger" })
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.AnhDaiDien, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        @Html.EditorFor(model => model.AnhDaiDien, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.AnhDaiDien, "", new { @class = "text-danger" })
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.AnhThucTe, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        @Html.EditorFor(model => model.AnhThucTe, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.AnhThucTe, "", new { @class = "text-danger" })
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.DiaChiShop, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        @Html.EditorFor(model => model.DiaChiShop, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.DiaChiShop, "", new { @class = "text-danger" })
+    </div>
+
+    @Html.ValidationMessageFor(model => model.MaTK, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

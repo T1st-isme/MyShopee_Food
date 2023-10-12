@@ -1,0 +1,63 @@
+﻿@model Shopee_Food.Models.Shop
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutDangKi.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Shop</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.MaShop)
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.TenShop, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenShop, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @Html.HiddenFor(model => model.DanhGia, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.DanhGia, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.TinhTrang, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.TinhTrang, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.SoLuongSanPham, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.SoLuongSanPham, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.DoanhThu, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.DoanhThu, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.AnhBia, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.AnhBia, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.AnhDaiDien, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.AnhDaiDien, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.AnhThucTe, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.AnhThucTe, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.MaTK, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.MaTK, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.HinhMenu, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.HinhMenu, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.HinhMenu, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Tiếp tục" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

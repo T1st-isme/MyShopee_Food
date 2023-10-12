@@ -1,0 +1,80 @@
+﻿@model IEnumerable<Shopee_Food.Models.NhanVien>
+
+@{
+    ViewBag.Title = "Danh sách nhân viên";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+    int i = 0;
+}
+
+<p>
+    <a href="/Admin/NhanViens/Create"
+       class="btn btn-primary">Thêm nhân viên</a>
+</p>
+<div>
+    <form>
+        <select name="danhgia" value="@ViewBag.DanhGia">
+            <option>Tất cả</option>
+            @foreach (var item in new Shopee_Food.Areas.Admin.map.mapNhanVien().DanhSach())
+            {
+                <option value="@item.DanhGia" @Html.Raw(item.DanhGia == ViewBag.DanhGia ? "selected" : "")>@item.DanhGia</option>
+            }
+        </select>
+        <input name="tukhoa" value="@ViewBag.TimKiem" />
+        <button>
+            Tìm kiếm
+        </button>
+    </form>
+</div>
+<div class="card-body">
+    <table class="table table-bordered table-responsive-md table-striped">
+        <thead style="color:cadetblue">
+            <tr>
+                <th width="50px">STT</th>
+                <th width="150px">Mã nhân viên</th>
+                <th>Tên nhân viên</th>
+                <th>Tài khoản</th>
+                <th width="300px">Đánh giá</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                i++;
+                <tr>
+                    <td align="center">@i</td>
+                    <td align="center">
+                        @("NV" + item.MaNV)
+                    </td>
+                    <td>
+                        @item.User.HoTen
+                    </td>
+                    <td>
+                        @item.User.TaiKhoan
+                    </td>
+                    <td>
+                        @item.DanhGia
+                    </td>
+
+                    <td>
+                        <a class="btn btn-info btn-sm" href="/Admin/NhanViens/Edit/@item.MaNV">
+                            <i class="fas fa-pencil-alt">
+                            </i>
+                            Sửa
+                        </a>
+                        <a class="btn btn-primary btn-sm" href="/Admin/NhanViens/Details/@item.MaNV">
+                            <i class="fas fa-folder">
+                            </i>
+                            Chi tiết
+                        </a>
+                        <a class="btn btn-danger btn-sm" href="/Admin/NhanViens/Delete/@item.MaNV">
+                            <i class="fas fa-trash">
+                            </i>
+                            Xóa
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

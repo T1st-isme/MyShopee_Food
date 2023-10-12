@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html class="masterLayout">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/css/masterstyle.css">
+    <link rel="stylesheet" href="~/Content/css/basestyle.css">
+    <script language="Javascript" src="~/Scripts/scripts.js"></script>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="https://kit.fontawesome.com/c0b1a641d5.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="container">
+        <div class="header">
+
+            <div class="header-logo">
+
+                <a href="/Home/Index" class="header-logo__adr" style="text-decoration: none; color: var(--text-color--)">
+                    <img src="~/Content/images/food-box_6718183.png" alt="HUFLIT LOGO" class="header-logo__img">
+                    <span style="position: relative;left: 4%;bottom: 25px;">
+                        <p style="font-size:40px" class="header-logo__text">ShopeeFood</p>
+                    </span>
+                </a>
+            </div>
+            <div class="header-menu">
+                <div class="header-menu-list">
+                    <div class="header-menu-list__nav">
+                        <div class="header-menu-list__nav-menu">
+                            <a href="/SanPhams_new/Index_user" class="header-menu-list__nav-menu-adr ">
+                                <span class="header-menu-list__nav-menu-text">Đồ ăn</span>
+                            </a>
+                        </div>
+                        <div class="header-menu-list__nav-menu">
+                            <a href="/SanPhams_new/Index_user" class="header-menu-list__nav-menu-adr">
+                                <span class="header-menu-list__nav-menu-text">Đồ uống</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-search">
+                <div class="header-search__expand">
+                    @using (Html.BeginForm("Index", "SanPhams_new", FormMethod.Get))
+                    {
+                        <div class="wrap">
+                            <div class="header-search-btn">
+                                <td class="header-search-btn--searchTerm">
+                                    @Html.TextBox("SearchString", null, new { @class = "form-control", @placeholder = "Nhập tên món ăn " })
+                                    <button class="header-search-btn--searchButton" type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+                @if (Session["UserName"] == null)
+                {
+
+                }
+                else
+                {
+                    <span class="header__menu_bar">
+                        <i class="header__menu_bar--icon fa fa-bars"></i>
+                        <ul class="submenu_bar">
+                            <li class="submenu_bar--list">
+                                @if (Session["UserName"] == null)
+                                {
+
+                                }
+                                else
+                                {
+                                    <a class="submenu_bar--list--text" href="/Users_new/Edit_U/@HttpContext.Current.Session["IDCus"].ToString()">Thông Tin</a>
+                                }
+                            </li>
+                            <li class="submenu_bar--list">
+                                @if (Session["UserName"] == null)
+
+                                {
+
+                                }
+                                else
+
+                                {
+                                    <a class="submenu_bar--list--text" href="~/Shops_new/dangki"> Shop</a>
+                                }
+                            </li>
+                            <li class="submenu_bar--list">
+
+                                @if (Session["UserName"] == null)
+
+                                {
+
+                                }
+                                else
+                                {
+
+                                    <a href="/Cart/Index" class="submenu_bar--list--text">Giỏ Hàng</a>
+                                }
+                            </li>
+                            <li class="submenu_bar--list">
+                                @if (Session["UserName"] == null)
+                                {
+
+                                }
+                                else
+                                {
+                                    <a href="/Users_new/LogOut" class="submenu_bar--list--text">Đăng xuất</a>
+                                }
+                            </li>
+                        </ul>
+                    </span>
+                }
+            </div>
+            <div class="login">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav_log">
+                        @if (Session["UserName"] == null)
+                        {
+                            <a class="a_nav_log" href="/Users_new/LoginCus" style=" text-decoration: none; "><span class="glyphicon glyphicon-user"></span> Đăng nhập </a>
+                        }
+                        else
+                        {
+                        }
+                    </li>
+
+                    <li class="nav_log">
+                        @if (Session["UserName"] == null)
+                        {
+                            <a class="a_nav_log" href="/Users_new/RegisterUser" style=" text-decoration: none; "><span class="glyphicon glyphicon-log-in"></span> Đăng ký</a>
+                        }
+                        else
+                        {
+                        }
+                    </li>
+                    <li class="format-hello">
+                        @if (Session["UserName"] == null)
+                        {
+                        }
+                        else
+                        {
+
+                            <a class="a_nav_log" href="/Users_new/edit/@HttpContext.Current.Session["IDCus"].ToString()" style=" text-decoration: none; "> <span class="glyphicon glyphicon-log-in"> <text> Hello </text> @Session["UserName"]</span></a>
+
+                        }
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Shopee_Food.Models.Shop>
+
+@{
+    Layout = null;
+}
+
+<style>
+    .table{
+        margin-left:350px;
+        margin-top:100px;
+    }
+   td{
+       text-align:center;
+   }
+</style>
+
+<!-- hiển thị hình nếu chưa có shop nào -->
+@if (ViewBag.NoShop)
+{
+
+    <div>
+        <img src="" alt="Chưa có shop nào" />
+        <p>Chưa có shop nào</p>
+    </div>
+}
+
+else
+{
+
+    <table class="table" border="1" style="width:60%">
+        <tr>
+            <th>
+                 Tên shop       
+            </th>
+ 
+            <th>
+               Tình trạng      
+            </th>
+
+            <th>
+                 Ảnh bìa      
+            </th>
+            <th>
+                 Ảnh đại diện     
+            </th>
+            <th>
+                 Ảnh thực tế      
+            </th>
+            <th>
+                 Hình Menu     
+            </th>
+            <th>
+                 Địa chỉ shop       
+            </th>
+            <th style="width:20%"></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenShop)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.TinhTrang)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnhBia)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnhDaiDien)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnhThucTe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HinhMenu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiaChiShop)
+                </td>
+                <td>
+                    @Html.ActionLink("Details_Shop", "Details_Shop", new { id = item.MaShop }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.MaShop })
+                </td>
+            </tr>
+        }
+
+    </table>
+}   

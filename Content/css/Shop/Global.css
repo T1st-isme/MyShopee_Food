@@ -1,0 +1,45 @@
+﻿body {
+    margin: 0;
+    line-height: normal;
+}
+
+.popup-overlay {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    inset: 0;
+}
+
+:root {
+    /* fonts */
+    --font-inter: Inter;
+    --font-open-sans: "Open Sans";
+    --font-franklin-gothic-heavy: "Franklin Gothic Heavy";
+    --font-forum: Forum;
+    /* font sizes */
+    --font-size-mid: 17px;
+    --font-size-3xs: 10px;
+    --font-size-lg: 18px;
+    --font-size-mini: 15px;
+    --font-size-11xl: 30px;
+    --font-size-3xl: 22px;
+    --font-size-6xl: 25px;
+    --font-size-21xl: 40px;
+    --font-size-xl: 20px;
+    --font-size-5xl: 24px;
+    /* Colors */
+    --color-whitesmoke-100: #f2f2f2;
+    --color-whitesmoke-200: #eee;
+    --color-black: #000;
+    --color-white: #fff;
+    --color-gainsboro: #d9d9d9;
+    --color-orange: #ffa113;
+    --color-lightgray-100: #d2cfca;
+    --color-gray-100: #080707;
+    /* Paddings */
+    --padding-3xs: 10px;
+    /* border radiuses */
+    --br-11xs-5: 1.5px;
+    --br-5xs: 8px;
+    --br-xl: 20px;
+}

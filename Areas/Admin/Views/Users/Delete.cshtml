@@ -1,0 +1,109 @@
+﻿@model Shopee_Food.Models.User
+
+@{
+    ViewBag.Title = "Xóa người dùng";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+
+<div>
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Người dùng <b> TK<span>@Model.MaTK</span></b></h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <dl class="dl-horizontal" style="font-size: 20px">
+                <dt>
+                    Tài khoản
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TaiKhoan)
+                </dd>
+
+                <dt>
+                    Mật khẩu
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MatKhau)
+                </dd>
+
+                <dt>
+                    Họ Tên
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.HoTen)
+                </dd>
+
+                <dt>
+                    Địa chỉ
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DiaChi)
+                </dd>
+
+                <dt>
+                    SĐT
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SDT)
+                </dd>
+
+                <dt>
+                    Email
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+
+                <dt>
+                    Giới tính
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.GioiTinh)
+                </dd>
+
+                <dt>
+                    Chức vụ
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ChucVu)
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-secondary" href="/Admin/Users">
+                    <i class="fas fa-long-arrow-alt-left">
+                    </i>
+                    Quay về
+                </a> |
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xóa người dùng này không?')">
+                    <i class='fas fa-times'></i> Xóa
+                </button>
+            </div>
+        </div>
+    }
+</div>

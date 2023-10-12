@@ -1,0 +1,110 @@
+﻿@model Shopee_Food.Models.User
+
+@{
+    ViewBag.Title = "Thông tin người dùng";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+
+<div>
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Thông tin nhân viên <b>@Model.HoTen</b></h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <dl class="dl-horizontal" style="font-size: 20px">
+                <dt>
+                    @Html.DisplayNameFor(model => model.TaiKhoan)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TaiKhoan)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.MatKhau)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MatKhau)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.HoTen)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.HoTen)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DiaChi)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DiaChi)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.SDT)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SDT)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.GioiTinh)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.GioiTinh)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ChucVu)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ChucVu)
+                </dd>
+            </dl>
+        </div>
+        <!-- /.card-body -->
+        @*<div class="card-footer">
+                Footer
+            </div>*@
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+</div>
+<p>
+    <a class="btn btn-info" href="/Admin/Users/Edit/@Model.MaTK">
+        <i class="fas fa-pencil-alt">
+        </i>
+        Sửa
+    </a> |
+    <a class="btn btn-secondary" href="/Admin/Users">
+        <i class="fas fa-long-arrow-alt-left">
+        </i>
+        Quay về
+    </a>
+</p>

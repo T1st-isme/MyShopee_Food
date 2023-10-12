@@ -1,0 +1,133 @@
+﻿@model IEnumerable<Shopee_Food.Models.Shop>
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+<style>
+    body {
+        background-image: url('	https://shopeefood.vn/app/assets/img/main-banner.jpg?45bff8c9ec408a5ba51f9fdef662324e');
+        width: 100%;
+        height: 100%;
+    }
+
+    .main_body {
+        display: flex;
+        justify-content: space-between;
+        color: white;
+        margin-top: 50px;
+    }
+
+    .body_left {
+        display: flex;
+        flex-direction: column;
+        width: 34%;
+    }
+
+    .nav_select ul li {
+        border: 1px solid white;
+        padding: 5px 10px;
+        margin-right: 10px;
+        margin-top: 10px;
+        border-radius: 10px;
+    }
+
+        .nav_select ul li:hover {
+            background-color: white;
+            color: black;
+        }
+
+    .body_right {
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+        height: 100%;
+
+    {
+        display: none; /* Chrome, Safari */
+    }
+
+    }
+
+    .card_box {
+        width: 150px;
+        overflow: hidden;
+        border: 0.5px solid grey;
+        padding-bottom: 10px;
+        /*border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;*/
+        border-radius: 10px;
+        margin-bottom: 30px;
+        position: relative;
+    }
+
+        .card_box:hover {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        .card_box .name_sp {
+            color: black;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .card_box .deal_sp {
+            color: red;
+            text-align: center;
+            font-size: 16px
+        }
+
+        .card_box .address_sp {
+            margin-left: 5px;
+            width: 100%;
+            overflow: hidden;
+        }
+</style>
+
+<main>
+    <div class="main_body">
+        <div class="body_left">
+            <p style="font-size: 23px; color: white;">Đặt Đồ ăn, giao hàng từ 20'...</p>
+            <p style="color: white;">Có 82999 Địa Điểm Ở TP. HCM Từ 00:00 - 23:59</p>
+            <div class="btn_sub_search" style="display: flex; margin-top: 30px; margin-bottom: 30px;">
+                <input type="text" placeholder="Tìm địa điểm, món ăn, địa chỉ,..." style="width: 80%; height: 50px; padding: 8px 12px; border: 1px solid #ccc; border-top-left-radius:4px;border-bottom-left-radius:4px; font-size: 16px;" />
+                <span class="search-icon" style="display: flex; justify-content:center;align-items:center; width: 20%; background-color: deepskyblue; padding: 8px; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                    <i class="fas fa-search" style="color: white;"></i>
+                </span>
+            </div>
+            <div class="nav_select">
+                <ul style="display: flex; flex-wrap:wrap; list-style:none">
+                    <a href="/SanPhams_new/Index_User">
+                    <li>All</li></a>
+
+                    <li> Đồ Ăn</li>
+                    <li>Đồ uống</li>
+                </ul>
+            </div>
+        </div>
+        <div class="body_right">
+            <div style="background-color: white; height: 45px; display: flex; align-items: center; border-radius: 5px; margin-bottom: 30px;">
+                @*<p style=" margin-left: 20px;color:black;">Đồ Ăn     -> Chọn địa chỉ giao hàng @ViewBag.ShopSize </p>*@
+            </div>
+            <div style=" background-color: white; height: 600px; border-radius: 5px;padding: 10px; overflow-y: scroll;">
+                <p style=" color: black; font-size: 20px;">Ưu Đãi</p>
+                <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+                    @{
+                        foreach (var i in Model)
+                        {
+                            <a href="/Shops_new/Details/@i.MaShop" class=" card_box">
+
+                                <div style="width: 20px; height:20px; background-color: green; position: absolute; top:-1px; left: -1px; border-radius: 50%; border: 2px solid white;"></div>
+                                <img style="object-fit: cover; width: 150px; margin-bottom: 10px;" src="~/Content/images/hinh12.jpg" />
+                                <p class="name_sp"> @i.TenShop</p>
+                                <p class="address_sp"> @i.DiaChiShop</p>
+                                <p class="deal_sp"> DEAL 1K</p>
+                            </a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

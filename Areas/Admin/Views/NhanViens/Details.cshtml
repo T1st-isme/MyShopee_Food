@@ -1,0 +1,94 @@
+﻿@model Shopee_Food.Models.NhanVien
+
+@{
+    ViewBag.Title = "Thông tin nhân viên";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+
+<div>
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Thông tin nhân viên <b>@Model.User.HoTen</b></h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <dl class="dl-horizontal" style="font-size: 20px">
+                <dt>
+                    Mã nhân viên
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MaNV)
+                </dd>
+
+                <dt>
+                    Họ tên
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.User.HoTen)
+                </dd>
+
+                <dt>
+                    Email
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.User.Email)
+                </dd>
+                <dt>
+                    SĐT
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.User.SDT)
+                </dd>
+                <dt>
+                    Địa chỉ
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.User.DiaChi)
+                </dd>
+                <dt>
+                    Đánh giá
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DanhGia)
+                </dd>
+                <dt>
+                    Chức vụ
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.User.ChucVu)
+                </dd>
+            </dl>
+        </div>
+        <!-- /.card-body -->
+        @*<div class="card-footer">
+                Footer
+            </div>*@
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+</div>
+<p>
+    <a class="btn btn-info" href="/Admin/NhanViens/Edit/@Model.MaNV">
+        <i class="fas fa-pencil-alt">
+        </i>
+        Sửa
+    </a> |
+    <a class="btn btn-secondary" href="/Admin/NhanViens">
+        <i class="fas fa-long-arrow-alt-left">
+        </i>
+        Quay về
+    </a>
+</p>

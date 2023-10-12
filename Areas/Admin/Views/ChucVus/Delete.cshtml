@@ -1,0 +1,54 @@
+﻿@model Shopee_Food.Models.ChucVu
+
+@{
+    ViewBag.Title = "Xóa chức vụ";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+
+<h3>Bạn có chắc muốn xóa nhân viên này không?</h3>
+<hr />
+<div>
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Chức vụ <b>@Model.TenCV</b></h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <dl class="dl-horizontal" style="font-size: 20px">
+                <dt>
+                    Tên chức vụ
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TenCV)
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-secondary" href="/Admin/NhanViens">
+                <i class="fas fa-long-arrow-alt-left">
+                </i>
+                Quay về
+            </a> |
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xóa nhân viên này không?')">
+                <i class='fas fa-times'></i> Xóa
+            </button>
+        </div>
+    </div>
+}

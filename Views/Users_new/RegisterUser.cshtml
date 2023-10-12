@@ -1,0 +1,68 @@
+﻿@model Shopee_Food.Models.User
+
+@{
+    ViewBag.Title = "Dang kí";
+    Layout = "~/Views/Shared/_DangkiUser.cshtml";
+}
+
+<style>
+    .hinh-dk {
+        position: absolute;
+        top: -60px;
+    }
+
+    .field-validation-error {
+        color: red;
+    }
+</style>
+<link href="~/Content/css/util.css" rel="stylesheet" />
+<link href="~/Content/css/main.css" rel="stylesheet" />
+@using (Html.BeginForm("RegisterUser", "Users_new", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="limiter">
+        <div class="container-login100" style=" background-image: url('../../content/images/bg-01.jpg');">
+            <div class="wrap-login100 p-t-30 p-b-50">
+                <span class="login100-form-title p-b-41" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold ">
+                    Đăng Kí
+                </span>
+                <div class="login100-form validate-form p-b-33 p-t-5">
+                    @using (Html.BeginForm("LoginCus", "Users_new", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="wrap-input100 validate-input" data-validate="Enter username">
+                            <input class="input100" type="text" name="TaiKhoan" placeholder="Tài khoản">
+                            <span class="focus-input100" data-placeholder="&#xe82a;"></span>
+                        </div>
+
+                        <div class="wrap-input100 validate-input" data-validate="Enter SDT">
+                            <input class="input100" name="SDT" placeholder="Số điện thoại">
+                            <span class="focus-input100" data-placeholder="&#xe83b;"></span>
+                        </div>
+
+                        <div class="wrap-input100 validate-input" data-validate="Enter password">
+                            <input class="input100" type="password" name="MatKhau" placeholder="Password">
+                            <span class="focus-input100" data-placeholder="&#xe80f;"></span>
+                        </div>
+
+                        <div class="container-login100-form-btn m-t-32">
+                            <button class="login100-form-btn" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold">
+                                Đăng Kí
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+@*@section scripts {
+        <script>
+            $(document).ready(function () {
+                // Ẩn dropdown list chọn chức vụ khi trang tải xong
+                $("#MaCV").hide();
+            });
+        </script>
+    }*@
