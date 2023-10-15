@@ -20,8 +20,9 @@
 }
 
 #SearchString {
-    border-radius: 50px;
+    border-radius: 5px;
     width: auto;
+    margin-left: -500px;
 }
 
 .header-logo__adr {
@@ -35,13 +36,14 @@
 }
 
 .header-logo__text {
-    font-family: 'Font Awesome 5 Free';
+    font-family: serif;
     margin-left: 10%;
-    margin-top: -5%;
+    margin-top: -6%;
+    color: white;
 }
 
 .header-menu {
-    margin: 0%;
+    margin: 1%;
 }
 
 .header-menu-list {
@@ -67,6 +69,7 @@
 .header-menu-list__nav-menu-text {
     position: relative;
     animation: showUp linear 0.3s;
+    color: white;
 }
 
     .header-menu-list__nav-menu-text::after {
@@ -140,6 +143,7 @@ ul.nav {
 .a_nav_log {
     color: rgb(233, 217, 144);
     padding-right: 15px;
+    color: white;
 }
 
     .a_nav_log:hover {
@@ -307,7 +311,7 @@ ul.nav {
 .login {
     position: inherit;
     top: 20%;
-    left: 15%;
+    left: 40%;
 }
 
 /* Footer */
@@ -369,19 +373,19 @@ a.menu-footer {
 .header-menu-list__nav-menu {
     border-radius: 15%;
     transition: 0.5s;
-    padding-left: 45px;
+    padding-left: 40px;
 }
 
     .header-menu-list__nav-menu :hover {
-        background-color: rgb(17, 17, 17);
-        color: rgb(240, 246, 246);
-        border-radius: 15px;
+        text-align: center;
+        background-color:orangered ;
+        color:black;
+        border-radius: 10px;
         margin-top: 10px;
-        transition: 0.5s;
-        padding-left: 30px;
+        transition: 0.3s;
+        padding-left: 50px;
         text-decoration: none;
     }
-
 /* thanh tiem kiem o content */
 
 .wrapper {

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿<!DOCTYPE htm   l>    
 <html class="masterLayout">
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -11,13 +11,10 @@
     @Scripts.Render("~/bundles/modernizr")
     <script src="https://kit.fontawesome.com/c0b1a641d5.js" crossorigin="anonymous"></script>
 </head>
-
 <body>
     <div id="container">
         <div class="header">
-
-            <div class="header-logo">
-
+            <div class="header-logo"
                 <a href="/Home/Index" class="header-logo__adr" style="text-decoration: none; color: var(--text-color--)">
                     <img src="~/Content/images/food-box_6718183.png" alt="HUFLIT LOGO" class="header-logo__img">
                     <span style="position: relative;left: 4%;bottom: 25px;">
@@ -50,7 +47,7 @@
                             <div class="header-search-btn">
                                 <td class="header-search-btn--searchTerm">
                                     @Html.TextBox("SearchString", null, new { @class = "form-control", @placeholder = "Nhập tên món ăn " })
-                                    <button class="header-search-btn--searchButton" type="submit">
+                                    <button class="header-search-btn--searchButton" type="submit" style="border-radius:5px">
                                         <i class="fa fa-search"></i>
                                     </button>
                             </div>
