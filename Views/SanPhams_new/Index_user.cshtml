@@ -6,55 +6,84 @@
 
 }
 <style>
+    .card {
+        max-width: 250px;
+        background-color: #F8F8FF;
+        text-align: center;
+        font-family: arial;
+        padding: 30px;
+        margin: 0 20px 20px 0;
+        border-radius: 10px;
+        height:320px;
+    }
+
+        .card:hover {
+            cursor: pointer;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+
+    .price {
+        color: grey;
+        font-size: 22px;
+    }
+
+    .card button {
+        border: none;
+        outline: 0;
+        padding: 12px;
+        color: white;
+        background-color: orangered;
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        font-size: 18px;
+        border-radius: 10px;
+    }
 
     .row {
-        display: flex;
-        margin: 50px;
+        display: inline-flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 10px;
     }
 
-    .card {
-        background-color: white;
-        width: 250px;
-        height: 400px;
-        margin-top: 1em;
-        align-items: center;
-        margin-right: 20px;
-        border-radius: 10px;
-        box-shadow: 100px 100px 100px rgba(110, 107, 107, 0.08);
-    }
-
-    #font-chu {
-        font-size: 18px;
-        text-align: center;
-        color: black;
-        width: 200px;
-        margin: 20px;
-        padding-top: 20px;
-    }
-
-    #slideshow {
-        margin-left: 5%;
+    .card button:hover {
+        /*opacity: 0.7;*/
     }
 </style>
+<body>
+    @foreach(var item in Model)
+    {
+        <div class="row">
+            <div class="card">
+                <img src="~/Content/images/hinh21.jpeg" style="width:100%; padding-bottom:10px; border-radius:10px">
+                <p class="font-text">@Html.DisplayFor(model => item.TenSP)</p>
+                <p class="font-text">@Html.DisplayFor(model => item.Loai)</p>
+                <p class="font-text">@Html.DisplayFor(model => item.Shop.TenShop)</p>
+                <p class="font-text">@Html.DisplayFor(model => item.DonGia)</p>
+            </div>      
+        </div>
+    }
+</body>
 
-<div id="slideshow">
-    <div class="col">
-        @foreach (var item in Model)
-        {
+@*<div id="slideshow">
+        <div class="col">
+            @foreach (var item in Model)
+            {
 
-            <a href="/Shops_new/Details/@item.MaShop" class="btn btn-dafault">
+                <a href="/Shops_new/Details/@item.MaShop" class="btn btn-dafault">
 
-                <div class="card">
+                    <div class="card">
 
-                    <div id="font-chu">
-                        <img src="~/Content/images/hinh21.jpeg" height="200" width="200" />
-                        <p class="font-text">@Html.DisplayFor(model => item.TenSP)</p>
-                        <p class="font-text">@Html.DisplayFor(model => item.Loai)</p>
-                        <p class="font-text">@Html.DisplayFor(model => item.Shop.TenShop)</p>
-                        <p class="font-text">@Html.DisplayFor(model => item.DonGia)</p>
+                        <div id="font-chu">
+                            <img src="~/Content/images/hinh21.jpeg" height="200" width="200" />
+                            <p class="font-text">@Html.DisplayFor(model => item.TenSP)</p>
+                            <p class="font-text">@Html.DisplayFor(model => item.Loai)</p>
+                            <p class="font-text">@Html.DisplayFor(model => item.Shop.TenShop)</p>
+                            <p class="font-text">@Html.DisplayFor(model => item.DonGia)</p>
+                        </div>
                     </div>
-                </div>
-            </a>
-        }
-    </div>
-</div>
+                </a>
+            }
+        </div>
+    </div>*@
