@@ -11,6 +11,21 @@
     @Scripts.Render("~/bundles/modernizr")
     <script src="https://kit.fontawesome.com/c0b1a641d5.js" crossorigin="anonymous"></script>
 </head>
+<style>
+    a {
+
+        color: white;
+        margin: 0 -.25rem;
+        padding: 0 .25rem;
+        transition: color .5s ease-in-out, box-shadow .5s ease-in-out;
+    }
+
+        a:hover {
+            box-shadow: inset 150px 0 0 0 #900C3F;
+            color: white;
+            text-decoration: none;
+        }
+</style>
 <body>
     <div id="container">
         <div class="header">
@@ -25,15 +40,11 @@
             <div class="header-menu">
                 <div class="header-menu-list">
                     <div class="header-menu-list__nav">
-                        <div class="header-menu-list__nav-menu">
-                            <a href="/SanPhams_new/Index_user" class="header-menu-list__nav-menu-adr ">
-                                <span class="header-menu-list__nav-menu-text">Đồ ăn</span>
-                            </a>
+                        <div>
+                            <a href="/SanPhams_new/Index_user">Đồ Ăn</a>
                         </div>
-                        <div class="header-menu-list__nav-menu">
-                            <a href="/SanPhams_new/Index_user" class="header-menu-list__nav-menu-adr">
-                                <span class="header-menu-list__nav-menu-text">Đồ uống</span>
-                            </a>
+                        <div style="padding-left:50px;">
+                            <a href="/SanPhams_new/Index_user">Đồ Uống</a>
                         </div>
                     </div>
                 </div>

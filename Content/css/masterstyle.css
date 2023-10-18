@@ -48,7 +48,7 @@
 
 .header-menu-list {
     position: relative;
-    top: 30%;
+    top: 20%;
 }
 
 .header-menu-list__nav {
@@ -368,24 +368,6 @@ a.menu-footer {
     display: flex;
     margin: 50px;
 }
-
-/* menu hover */
-.header-menu-list__nav-menu {
-    border-radius: 15%;
-    transition: 0.5s;
-    padding-left: 40px;
-}
-
-    .header-menu-list__nav-menu :hover {
-        text-align: center;
-        background-color:orangered ;
-        color:black;
-        border-radius: 10px;
-        margin-top: 10px;
-        transition: 0.3s;
-        padding-left: 50px;
-        text-decoration: none;
-    }
 /* thanh tiem kiem o content */
 
 .wrapper {
