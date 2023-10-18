@@ -84,6 +84,7 @@
         transition: 0.3s ease-out;
     }
 
+
 /* .header-menu-list__nav-menu-text:hover {
   width: 100%;
   height: 100%;
@@ -378,6 +379,23 @@ a.menu-footer {
 
 #search-container {
 }
+
+.header-menu-list__nav-menu {
+    border-radius: 15%;
+    transition: 0.5s;
+    padding-left: 40px;
+}
+
+    .header-menu-list__nav-menu :hover {
+        text-align: center;
+        background-color: orangered;
+        color: black;
+        border-radius: 10px;
+        margin-top: 10px;
+        transition: 0.3s;
+        padding-left: 50px;
+        text-decoration: none;
+    }
 
     #search-container input {
         background-color: transparent;
