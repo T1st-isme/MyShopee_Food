@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Shopee_Food.Models.Voucher>
+
+@{
+    ViewBag.Title = "Voucher List";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+<h2>Voucher List</h2>
+
+<table class="table">
+    <tr>
+        <th>NameVoucher</th>
+        <th>Discount</th>
+    </tr>
+    @foreach (var voucher in Model)
+    {
+        <tr>
+            <td>@voucher.NameVoucher</td>
+            <td>@voucher.Discount</td>
+        </tr>
+    }
+</table>

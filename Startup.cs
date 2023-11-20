@@ -1,5 +1,6 @@
 ﻿using Microsoft.Owin;
 using Owin;
+using System.Web.Services.Description;
 
 [assembly: OwinStartupAttribute(typeof(Shopee_Food.Startup))]
 namespace Shopee_Food
