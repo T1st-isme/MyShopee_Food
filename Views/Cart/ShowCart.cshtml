@@ -1,0 +1,154 @@
+﻿﻿@model List<Shopee_Food.Models.MatHangMua>
+@{
+    ViewBag.Title = "ShowCart";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+<head>
+    <style>
+        .content {
+            padding: 0 50px 0 50px;
+        }
+    </style>
+</head>
+
+<div class="content">
+    <h2 style="text-align:center; font-size: 25px;color:black; margin-top: 30px; margin-bottom: 30px;">THÔNG TIN GIỎ HÀNG</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tên sản phẩm</th>
+                <th>Hình sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Giá</th>
+                <th>Thành tiền</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.TenSp</td>
+                    <td>
+                        <img style="width:70px;" src="https://beptueu.vn/hinhanh/tintuc/top-15-hinh-anh-mon-an-ngon-viet-nam-khien-ban-khong-the-roi-mat-10.jpg" height="100" width="100" />
+                    </td>
+                    @using (Html.BeginForm("UpdateCart", "Cart", new { MaSP = @item.MaSP }))
+                    {
+                        <td>
+                            <input type="number" min="1" value="@item.Amount" name="SoLuong" />
+                            <button type="submit" class="btn btn-primary">Cập nhật</button>
+                        </td>
+
+                        <td>@string.Format("{0:N0} đ", Double.Parse(@item.Price.ToString()))</td>
+                        <td>@string.Format("{0:N0} đ", Double.Parse(@item.Total().ToString())) </td>
+
+
+                    }
+                    <td>
+                        @Html.ActionLink("Xóa món ăn", "DeleteProduct", "Cart", new
+                        {
+                            MaSP = item.MaSP
+                        }, new { @class = "btn btn-danger" })
+                    </td>
+                    <td></td>
+
+                </tr>
+
+            }
+
+            <tr>
+                <td></td>
+                <td>
+                    <h4>Mã giảm giá</h4>
+                </td>
+
+                <td>
+                    @using (Html.BeginForm("ApplyDiscountCode", "Cart"))
+                    {
+                        <input type="text" name="discountCode" />
+                        <button type="submit" class="btn btn-primary">Áp dụng</button>
+                    }
+                </td>
+
+            </tr>
+
+        </tbody>
+
+        <tfoot>
+            <tr>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="4">
+                    @using (Html.BeginForm("PaymentWithPaypal", "Cart"))
+                    {
+                        <table style="border-collapse:separate;border-spacing:5px;">
+                            <td></td>
+                            @if (Session["UserName"] == null)
+                            {
+                                <tr>
+                                    <td></td>
+                                    <td style="color:#ff0000;">Vui lòng đăng nhập để thanh toán</td>
+                                    <td>
+                                        <a href="@Url.Action("LoginCus","Users_new")" class="btn btn-success">Đăng nhập</a>
+                                    </td>
+                                </tr>
+
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td><input type="hidden" name="CodeCustomer" value="@Session["IDCus"]" required /></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Địa chỉ giao hàng:</td>
+                                    <td><input type="text" name="AddressDelivery" required /></td>
+                                </tr>
+                                <tr>
+                                    <td>Số điện thoại:</td>
+                                    <td><input type="text" name="PhoneNumber" required /></td>
+                                </tr>
+
+                            }
+
+                            <td colspan="6" style="text-align:right;font-size:20px;color:#ee4d2d">
+                                <hr />
+                                @if (System.Web.HttpContext.Current.Session != null && System.Web.HttpContext.Current.Session["PriceAfterDis"] != null)
+                                {
+                                    int? intValue = System.Web.HttpContext.Current.Session["perCentDis"] as int?;
+                                    if (intValue.HasValue)
+                                    {
+                                        <p>
+                                            Tổng tiền: @String.Format("{0:0,0}", Session["PriceAfterDis"]) ₫
+                                        </p>
+                                    }
+                                }
+                                else
+                                {
+
+                                    <p>
+                                        Tổng tiền: @String.Format("{0:0,0}", Double.Parse(@ViewBag.TongTien.ToString())) ₫
+                                    </p>
+                                    ViewBag.Message = "Mã voucher không tồn tại.";
+
+                                }
+                                <a href="
+   @Url.Action("PaymentWithPaypal", "ThanhToans_new" )
+   " style=" display: inline-block; border-radius: 5px; padding: 10px 20px; font-size: 16px; font-weight: bold;
+   text-align: center; text-decoration: none; color: #fff;
+   background-color: #007bff; border: none; cursor: pointer;
+   transition: background-color 0.3s ease;">Thanh Toán</a>
+                            </td>
+                        </table>
+                    }
+
+                </td>
+            </tr>
+        <td>
+            <a style="color:orangered; text-decoration:none;" href="@Url.Action("Index","Home")">Tìm các sản phẩm khác</a>
+        </td>
+        </tfoot>
+    </table>
+
+</div>

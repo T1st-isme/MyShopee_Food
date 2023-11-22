@@ -28,7 +28,6 @@ namespace Shopee_Food.Models
             this.Price = double.Parse(getSP.DonGia.ToString());
             this.Amount = 1;
 
-
         }
     }
 }

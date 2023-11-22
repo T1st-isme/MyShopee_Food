@@ -401,6 +401,7 @@
     <Compile Include="Models\ChucVu.cs">
       <DependentUpon>DBShopeeFood.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\DanhMuc.cs">
       <DependentUpon>DBShopeeFood.tt</DependentUpon>
     </Compile>
@@ -2929,7 +2930,7 @@
     <Content Include="Views\DanhMucs_new\Details.cshtml" />
     <Content Include="Views\DanhMucs_new\Edit.cshtml" />
     <Content Include="Views\DanhMucs_new\Index.cshtml" />
-    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\ShowCart.cshtml" />
     <Content Include="Views\Cart\CartNoProduct.cshtml" />
     <Content Include="Views\Users_new\ShoppingInfo.cshtml" />
     <Content Include="Views\SanPhams_new\CategoryPartial.cshtml" />
@@ -2938,6 +2939,7 @@
     <Content Include="Views\Shared\_MasterLayout.cshtml" />
     <Content Include="Views\Users_new\Edit_U.cshtml" />
     <Content Include="Views\Voucher\Index.cshtml" />
+    <Content Include="Views\Cart\CheckOut_Success.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

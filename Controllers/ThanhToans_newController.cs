@@ -303,7 +303,7 @@ namespace Shopee_Food.Controllers
             //Final amount with details  
             var amount = new Amount()
             {
-                currency = "USD",
+                currency = "VNĐ",
                 total = "3", // Total must be equal to sum of tax, shipping and subtotal.  
                 details = details
             };
