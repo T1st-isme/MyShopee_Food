@@ -24,7 +24,6 @@ namespace Shopee_Food.Controllers
                 // Lấy thông tin user từ bảng Users
                 int maTK = (int)Session["IDCus"];
 
-
                 User user = GetUserDetails(maTK);
 
                 // Lấy thông tin thanh toán của user từ bảng ThanhToan (nếu có)
@@ -42,7 +41,7 @@ namespace Shopee_Food.Controllers
             }
             catch (Exception ex)
             {
-       
+                return View("Error", new HandleErrorInfo(ex, "ThanhToans_new", "UserDetails"));
             }
 
             return RedirectToAction("Index", "ThanhToans_new"); // Hoặc chuyển hướng tới một trang thông báo lỗi khác
@@ -55,7 +54,6 @@ namespace Shopee_Food.Controllers
             // Ví dụ sử dụng Entity Framework:
             using (DBShopeeFoodEntities context = new DBShopeeFoodEntities()) // Thay đổi YourDbContext thành DbContext của bạn
             {
-
                 return context.Users.FirstOrDefault(u => u.MaTK == maTK);
             }
         }
@@ -79,8 +77,6 @@ namespace Shopee_Food.Controllers
                 return context.Shops.FirstOrDefault(u => u.MaTK == maTK);
             }
         }
-
-
 
         public ActionResult Index()
         {
@@ -106,12 +102,11 @@ namespace Shopee_Food.Controllers
         // GET: ThanhToans_new/Create
         public ActionResult Create()
         {
-
             return View();
         }
 
         // POST: ThanhToans_new/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -122,7 +117,7 @@ namespace Shopee_Food.Controllers
                 int maUser = (int)Session["IDCus"];
                 thanhToan.MaTK = maUser;
                 db.ThanhToans.Add(thanhToan);
-                db.SaveChanges();        
+                db.SaveChanges();
                 return RedirectToAction("UserDetails", "ThanhToans_new", new { id = thanhToan.MaTK });
             }
             return View(thanhToan);
@@ -145,7 +140,7 @@ namespace Shopee_Food.Controllers
         }
 
         // POST: ThanhToans_new/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]

@@ -1,6 +1,6 @@
 ﻿﻿@model List<Shopee_Food.Models.MatHangMua>
 @{
-    ViewBag.Title = "ShowCart";
+    ViewBag.Title = "Giỏ hàng";
     Layout = "~/Views/Shared/_MasterLayout.cshtml";
 }
 <head>
@@ -12,7 +12,7 @@
 </head>
 
 <div class="content">
-    <h2 style="text-align:center; font-size: 25px;color:black; margin-top: 30px; margin-bottom: 30px;">THÔNG TIN GIỎ HÀNG</h2>
+    <h2 style="text-align:center; font-weight:bold;font-size: 30px;color:black; margin-top: 30px; margin-bottom: 30px;">THÔNG TIN GIỎ HÀNG</h2>
     <table class="table">
         <thead>
             <tr>
@@ -22,26 +22,24 @@
                 <th>Giá</th>
                 <th>Thành tiền</th>
             </tr>
-
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.TenSp</td>
+                    <td style="font-size:18px; font-weight:400">@item.TenSp</td>
                     <td>
-                        <img style="width:70px;" src="https://beptueu.vn/hinhanh/tintuc/top-15-hinh-anh-mon-an-ngon-viet-nam-khien-ban-khong-the-roi-mat-10.jpg" height="100" width="100" />
+                        <img src="~/Content/images/@item.img" height="120" width="120" style="border-radius: 20px " />
                     </td>
                     @using (Html.BeginForm("UpdateCart", "Cart", new { MaSP = @item.MaSP }))
                     {
                         <td>
-                            <input type="number" min="1" value="@item.Amount" name="SoLuong" />
+                            <input type="number" min="1" value="@item.Amount" name="SoLuong" style="width:5rem; text-align:center" />
                             <button type="submit" class="btn btn-primary">Cập nhật</button>
                         </td>
 
-                        <td>@string.Format("{0:N0} đ", Double.Parse(@item.Price.ToString()))</td>
-                        <td>@string.Format("{0:N0} đ", Double.Parse(@item.Total().ToString())) </td>
-
+                        <td style="font-size:18px; font-weight:400">@string.Format("{0:N0} đ", Double.Parse(@item.Price.ToString()))</td>
+                        <td style="font-size:18px; font-weight:400">@string.Format("{0:N0} đ", Double.Parse(@item.Total().ToString())) </td>
 
                     }
                     <td>
@@ -51,7 +49,6 @@
                         }, new { @class = "btn btn-danger" })
                     </td>
                     <td></td>
-
                 </tr>
 
             }
@@ -69,9 +66,7 @@
                         <button type="submit" class="btn btn-primary">Áp dụng</button>
                     }
                 </td>
-
             </tr>
-
         </tbody>
 
         <tfoot>
@@ -83,11 +78,10 @@
                     @using (Html.BeginForm("PaymentWithPaypal", "Cart"))
                     {
                         <table style="border-collapse:separate;border-spacing:5px;">
-                            <td></td>
+
                             @if (Session["UserName"] == null)
                             {
                                 <tr>
-                                    <td></td>
                                     <td style="color:#ff0000;">Vui lòng đăng nhập để thanh toán</td>
                                     <td>
                                         <a href="@Url.Action("LoginCus","Users_new")" class="btn btn-success">Đăng nhập</a>
@@ -122,33 +116,33 @@
                                         <p>
                                             Tổng tiền: @String.Format("{0:0,0}", Session["PriceAfterDis"]) ₫
                                         </p>
+
                                     }
+
                                 }
                                 else
                                 {
 
                                     <p>
-                                        Tổng tiền: @String.Format("{0:0,0}", Double.Parse(@ViewBag.TongTien.ToString())) ₫
+                                        <span style="font-size:25px; font-weight:bold">Tổng tiền:</span> @String.Format("{0:0,0}", Double.Parse(@ViewBag.TongTien.ToString())) ₫
                                     </p>
                                     ViewBag.Message = "Mã voucher không tồn tại.";
 
                                 }
-                                <a href="
-   @Url.Action("PaymentWithPaypal", "Cart" )
-   " style=" display: inline-block; border-radius: 5px; padding: 10px 20px; font-size: 16px; font-weight: bold;
-   text-align: center; text-decoration: none; color: #fff;
-   background-color: #007bff; border: none; cursor: pointer;
-   transition: background-color 0.3s ease;">Thanh Toán</a>
                             </td>
+                            @if (Session["UserName"] != null)
+                            {
+                                <a href="
+                @Url.Action("PaymentWithPaypal", "Cart" )
+                " style=" display: inline-block; border-radius: 5px; padding: 10px 20px; font-size: 16px; font-weight: bold; text-align: center; text-decoration: none; color: #fff; background-color: #007bff; border: none; cursor: pointer; transition: background-color 0.3s ease; position: relative; top: 14rem;">Thanh Toán</a>
+                            }
                         </table>
                     }
-
                 </td>
             </tr>
         <td>
-            <a style="color:orangered; text-decoration:none;" href="@Url.Action("Index","Home")">Tìm các sản phẩm khác</a>
+            <a style="color:orangered; text-decoration:none;" href="@Url.Action("Index_user","SanPhams_new")">Tìm các sản phẩm khác</a>
         </td>
         </tfoot>
     </table>
-
 </div>

@@ -6,84 +6,211 @@
 
 }
 <style>
-    .card {
-        max-width: 250px;
-        background-color: #F8F8FF;
-        text-align: center;
-        font-family: arial;
-        padding: 30px;
-        margin: 0 20px 20px 0;
-        border-radius: 10px;
-        height:320px;
+    body {
+        margin-top: 20px;
+        background: #eee;
+    }
+    /* E-commerce */
+    .product-box {
+        padding: 0;
+        border: 1px solid #e7eaec;
     }
 
-        .card:hover {
-            cursor: pointer;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        .product-box:hover,
+        .product-box.active {
+            border: 1px solid transparent;
+            -webkit-box-shadow: 0 3px 7px 0 #a8a8a8;
+            -moz-box-shadow: 0 3px 7px 0 #a8a8a8;
+            box-shadow: 0 3px 7px 0 #a8a8a8;
         }
 
-    .price {
-        color: grey;
-        font-size: 22px;
-    }
-
-    .card button {
-        border: none;
-        outline: 0;
-        padding: 12px;
-        color: white;
-        background-color: orangered;
+    .product-imitation {
         text-align: center;
-        cursor: pointer;
-        width: 100%;
+        padding: 90px 0;
+        background-color: #f8f8f9;
+        color: #bebec3;
+        font-weight: 600;
+    }
+
+    .cart-product-imitation {
+        text-align: center;
+        padding-top: 30px;
+        height: 80px;
+        width: 80px;
+        background-color: #f8f8f9;
+    }
+
+    .product-imitation.xl {
+        padding: 120px 0;
+    }
+
+    .product-desc {
+        padding: 20px;
+        position: relative;
+    }
+
+    .ecommerce .tag-list {
+        padding: 0;
+    }
+
+    .ecommerce .fa-star {
+        color: #d1dade;
+    }
+
+        .ecommerce .fa-star.active {
+            color: #f8ac59;
+        }
+
+    .ecommerce .note-editor {
+        border: 1px solid #e7eaec;
+    }
+
+    table.shoping-cart-table {
+        margin-bottom: 0;
+    }
+
+        table.shoping-cart-table tr td {
+            border: none;
+            text-align: right;
+        }
+
+            table.shoping-cart-table tr td.desc,
+            table.shoping-cart-table tr td:first-child {
+                text-align: left;
+            }
+
+            table.shoping-cart-table tr td:last-child {
+                width: 80px;
+            }
+
+    .product-name {
         font-size: 18px;
-        border-radius: 10px;
+        font-weight: 600;
+        color: #676a6c;
+        display: block;
+        margin: 2px 0 5px 0;
     }
 
-    .row {
-        display: inline-flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        padding: 10px;
+        .product-name:hover,
+        .product-name:focus {
+            color: #1ab394;
+        }
+
+    .product-price {
+        font-size: 14px;
+        font-weight: 600;
+        color: #ffffff;
+        background-color: #1ab394;
+        padding: 6px 12px;
+        position: absolute;
+        top: -32px;
+        right: 0;
     }
 
-    .card button:hover {
-        /*opacity: 0.7;*/
+    .product-detail .ibox-content {
+        padding: 30px 30px 50px 30px;
+    }
+
+    .image-imitation {
+        background-color: #f8f8f9;
+        text-align: center;
+        padding: 200px 0;
+    }
+
+    .product-main-price small {
+        font-size: 10px;
+    }
+
+    .product-images {
+        margin: 0 20px;
+    }
+
+    .ibox {
+        clear: both;
+        margin-bottom: 25px;
+        margin-top: 0;
+        padding: 0;
+    }
+
+        .ibox.collapsed .ibox-content {
+            display: none;
+        }
+
+        .ibox.collapsed .fa.fa-chevron-up:before {
+            content: "\f078";
+        }
+
+        .ibox.collapsed .fa.fa-chevron-down:before {
+            content: "\f077";
+        }
+
+        .ibox:after,
+        .ibox:before {
+            display: table;
+        }
+
+    .ibox-title {
+        -moz-border-bottom-colors: none;
+        -moz-border-left-colors: none;
+        -moz-border-right-colors: none;
+        -moz-border-top-colors: none;
+        background-color: #ffffff;
+        border-color: #e7eaec;
+        border-image: none;
+        border-style: solid solid none;
+        border-width: 3px 0 0;
+        color: inherit;
+        margin-bottom: 0;
+        padding: 14px 15px 7px;
+        min-height: 48px;
+    }
+
+    .ibox-content {
+        background-color: #ffffff;
+        color: inherit;
+        padding: 15px 20px 20px 20px;
+        border-color: #e7eaec;
+        border-image: none;
+        border-style: solid solid none;
+        border-width: 1px 0;
+    }
+
+    .ibox-footer {
+        color: inherit;
+        border-top: 1px solid #e7eaec;
+        font-size: 90%;
+        background: #ffffff;
+        padding: 10px 15px;
     }
 </style>
-<body>
-    @foreach(var item in Model)
-    {
-        <div class="row">
-            <div class="card">
-                <img src="~/Content/images/hinh21.jpeg" style="width:100%; padding-bottom:10px; border-radius:15px">
-                <p class="font-text">@Html.DisplayFor(model => item.TenSP)</p>
-                <p class="font-text">@Html.DisplayFor(model => item.Loai)</p>
-                <p class="font-text">@Html.DisplayFor(model => item.Shop.TenShop)</p>
-                <p class="font-text">@Html.DisplayFor(model => item.DonGia)</p>
-            </div>      
-        </div>
-    }
-</body>
 
-@*<div id="slideshow">
-        <div class="col">
-            @foreach (var item in Model)
-            {
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3">
+                <a href="/Shops_new/Details/@item.MaShop">
+                    <div class="ibox">
+                        <div class="ibox-content product-box" style="width:auto; height:auto">
+                            <div class="product-imitation">
+                                <img width="200" height="200" src="~/Content/images/@item.HinhSP">
+                            </div>
+                            <div class="product-desc">
+                                <span class="product-price">
+                                    @item.DonGia.ToString("#,##0") đ
+                                </span>
+                                <small class="text-muted">@item.Loai</small>
+                                <a href="#" class="product-name"> @item.TenSP</a>
 
-                <a href="/Shops_new/Details/@item.MaShop" class="btn btn-dafault">
-
-                    <div class="card">
-
-                        <div id="font-chu">
-                            <img src="~/Content/images/hinh21.jpeg" height="200" width="200" />
-                            <p class="font-text">@Html.DisplayFor(model => item.TenSP)</p>
-                            <p class="font-text">@Html.DisplayFor(model => item.Loai)</p>
-                            <p class="font-text">@Html.DisplayFor(model => item.Shop.TenShop)</p>
-                            <p class="font-text">@Html.DisplayFor(model => item.DonGia)</p>
+                                <div class="small m-t-xs">
+                                    @item.Shop.TenShop
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </a>
-            }
-        </div>
-    </div>*@
+            </div>
+        }
+    </div>
+</div>
