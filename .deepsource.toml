@@ -1,0 +1,23 @@
+version = 1
+
+[[analyzers]]
+name = "javascript"
+
+  [analyzers.meta]
+  plugins = ["ember"]
+  environment = [
+    "jquery",
+    "browser"
+  ]
+
+[[analyzers]]
+name = "test-coverage"
+
+[[analyzers]]
+name = "sql"
+
+[[analyzers]]
+name = "csharp"
+
+[[transformers]]
+name = "dotnet-format"
