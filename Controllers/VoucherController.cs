@@ -17,7 +17,7 @@ namespace Shopee_Food.Controllers
 {
     public class VoucherController : Controller
     {
-         private readonly Shopee_Food.MongoDBContext.MongoDBContext _mongoDBContext;
+        private readonly Shopee_Food.MongoDBContext.MongoDBContext _mongoDBContext;
 
 
         public VoucherController()

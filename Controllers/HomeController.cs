@@ -15,7 +15,7 @@ namespace Shopee_Food.Controllers
         {
             var getShop = db.Shops.ToList();
             ViewBag.ShopSize = getShop.Count();
-           
+
             Console.WriteLine(getShop.Count());
             return View(getShop);
         }
