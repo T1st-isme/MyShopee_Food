@@ -8,7 +8,7 @@ namespace Shopee_Food.Models
     public class ThongTinViewModel
     {
         public Shop Shop { get; set; }
-        public  User user { get; set; }
+        public User user { get; set; }
         public ThanhToan thanhToan { get; set; }
 
     }
