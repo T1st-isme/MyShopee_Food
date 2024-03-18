@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Shopee_Food.Areas.Admin.Pattern.ProductAD;
 using Shopee_Food.Models;
 
 namespace Shopee_Food.Areas.Admin.Controllers
@@ -14,11 +15,19 @@ namespace Shopee_Food.Areas.Admin.Controllers
     {
         private DBShopeeFoodEntities db = new DBShopeeFoodEntities();
 
+        private IProductADRepository _productADRepository;
+
+        public SanPhamsAdController()
+        {
+            this._productADRepository = new ProductADRepository(new DBShopeeFoodEntities());
+        }
+
         // GET: Admin/SanPhamsAd
         public ActionResult Index()
         {
-            var sanPham = db.SanPhams.Include(s => s.DanhMuc).Include(s => s.DanhMuc1).Include(s => s.Shop);
-            return View(sanPham.ToList());
+            var pro = from s in _productADRepository.GetProduct()
+                      select s;
+            return View(pro.ToList());
         }
 
         // GET: Admin/SanPhamsAd/Details/5
@@ -28,7 +37,7 @@ namespace Shopee_Food.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SanPham sanPham = db.SanPhams.Find(id);
+            SanPham sanPham = _productADRepository.GetProductByID(id);
             if (sanPham == null)
             {
                 return HttpNotFound();
@@ -54,8 +63,8 @@ namespace Shopee_Food.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.SanPhams.Add(sanPham);
-                db.SaveChanges();
+                _productADRepository.InsertProduct(sanPham);
+                _productADRepository.Save();
                 return RedirectToAction("Index");
             }
 
@@ -71,7 +80,7 @@ namespace Shopee_Food.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SanPham sanPham = db.SanPhams.Find(id);
+            SanPham sanPham = _productADRepository.GetProductByID(id);
             if (sanPham == null)
             {
                 return HttpNotFound();
@@ -90,8 +99,8 @@ namespace Shopee_Food.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(sanPham).State = EntityState.Modified;
-                db.SaveChanges();
+                _productADRepository.UpdateProduct(sanPham);
+                _productADRepository.Save();
                 return RedirectToAction("Index");
             }
             ViewBag.MaDM = new SelectList(db.DanhMucs, "MaDM", "TenDanhMuc", sanPham.MaDM);
@@ -106,7 +115,7 @@ namespace Shopee_Food.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SanPham sanPham = db.SanPhams.Find(id);
+            SanPham sanPham = _productADRepository.GetProductByID(id);
             if (sanPham == null)
             {
                 return HttpNotFound();
@@ -119,9 +128,17 @@ namespace Shopee_Food.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            SanPham sanPham = db.SanPhams.Find(id);
-            db.SanPhams.Remove(sanPham);
-            db.SaveChanges();
+            try
+            {
+                SanPham pro = _productADRepository.GetProductByID(id);
+                _productADRepository.DeleteProduct(id);
+                _productADRepository.Save();
+            }
+            catch (DataException /* dex */)
+            {
+                //Log the error (uncomment dex variable name after DataException and add a line here to write a log.
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+            }
             return RedirectToAction("Index");
         }
 
@@ -131,6 +148,7 @@ namespace Shopee_Food.Areas.Admin.Controllers
             {
                 db.Dispose();
             }
+            _productADRepository.Dispose();
             base.Dispose(disposing);
         }
     }

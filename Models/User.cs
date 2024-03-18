@@ -17,13 +17,13 @@ namespace Shopee_Food.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
+            this.DonHangs = new HashSet<DonHang>();
+            this.GioHangs = new HashSet<GioHang>();
             this.KhachHangs = new HashSet<KhachHang>();
             this.NhanViens = new HashSet<NhanVien>();
             this.PhanQuyens = new HashSet<PhanQuyen>();
             this.Shops = new HashSet<Shop>();
             this.ThanhToans = new HashSet<ThanhToan>();
-            this.GioHangs = new HashSet<GioHang>();
-            this.DonHangs = new HashSet<DonHang>();
         }
     
         public int MaTK { get; set; }
@@ -38,6 +38,10 @@ namespace Shopee_Food.Models
         public string CCCD { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DonHang> DonHangs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GioHang> GioHangs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KhachHang> KhachHangs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NhanVien> NhanViens { get; set; }
@@ -47,9 +51,5 @@ namespace Shopee_Food.Models
         public virtual ICollection<Shop> Shops { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ThanhToan> ThanhToans { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GioHang> GioHangs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DonHang> DonHangs { get; set; }
     }
 }

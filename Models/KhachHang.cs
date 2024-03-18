@@ -17,7 +17,6 @@ namespace Shopee_Food.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public KhachHang()
         {
-            this.DonHangs = new HashSet<DonHang>();
             this.HoaDons = new HashSet<HoaDon>();
         }
     
@@ -29,8 +28,6 @@ namespace Shopee_Food.Models
         public string DiaChi { get; set; }
         public string LoaiThanhVien { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DonHang> DonHangs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoaDon> HoaDons { get; set; }
         public virtual User User { get; set; }

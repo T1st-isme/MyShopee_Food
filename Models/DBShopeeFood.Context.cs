@@ -28,7 +28,7 @@ namespace Shopee_Food.Models
         public virtual DbSet<ChucVu> ChucVus { get; set; }
         public virtual DbSet<DanhMuc> DanhMucs { get; set; }
         public virtual DbSet<DonHang> DonHangs { get; set; }
-        public virtual DbSet<DonHangChiTiet> DonHangChiTiets { get; set; }
+        public virtual DbSet<GioHang> GioHangs { get; set; }
         public virtual DbSet<HoaDon> HoaDons { get; set; }
         public virtual DbSet<KhachHang> KhachHangs { get; set; }
         public virtual DbSet<NhanVien> NhanViens { get; set; }
@@ -38,6 +38,6 @@ namespace Shopee_Food.Models
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<ThanhToan> ThanhToans { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<GioHang> GioHangs { get; set; }
+        public virtual DbSet<DonHangChiTiet> DonHangChiTiets { get; set; }
     }
 }

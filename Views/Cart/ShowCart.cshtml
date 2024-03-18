@@ -13,6 +13,7 @@
 
 <div class="content">
     <h2 style="text-align:center; font-weight:bold;font-size: 30px;color:black; margin-top: 30px; margin-bottom: 30px;">THÔNG TIN GIỎ HÀNG</h2>
+
     <table class="table">
         <thead>
             <tr>
@@ -68,81 +69,109 @@
                 </td>
             </tr>
         </tbody>
-
+        <form method="post" action="PaymentChoice">
         <tfoot>
             <tr>
             </tr>
             <tr>
                 <td colspan="2"></td>
                 <td colspan="4">
-                    @using (Html.BeginForm("PaymentWithPaypal", "Cart"))
-                    {
-                        <table style="border-collapse:separate;border-spacing:5px;">
 
-                            @if (Session["UserName"] == null)
-                            {
-                                <tr>
-                                    <td style="color:#ff0000;">Vui lòng đăng nhập để thanh toán</td>
-                                    <td>
-                                        <a href="@Url.Action("LoginCus","Users_new")" class="btn btn-success">Đăng nhập</a>
-                                    </td>
-                                </tr>
+                    <table style="border-collapse:separate;border-spacing:5px;">
 
-                            }
-                            else
-                            {
-                                <tr>
-                                    <td><input type="hidden" name="CodeCustomer" value="@Session["IDCus"]" required /></td>
-                                </tr>
+                        <!-- Other form inputs -->
+                        @if (Session["UserName"] == null)
+                        {
+                            <tr>
+                                <td style="color:#ff0000;">Vui lòng đăng nhập để thanh toán</td>
+                                <td>
+                                    <a href="@Url.Action("LoginCus","Users_new")" class="btn btn-success">Đăng nhập</a>
+                                </td>
+                            </tr>
 
-                                <tr>
-                                    <td>Địa chỉ giao hàng:</td>
-                                    <td><input type="text" name="AddressDelivery" required /></td>
-                                </tr>
-                                <tr>
-                                    <td>Số điện thoại:</td>
-                                    <td><input type="text" name="PhoneNumber" required /></td>
-                                </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>DEBUG: User is logged in. UserName: @Session["UserName"]</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>
+                                        <input type="radio" name="paymentMethod" value="paypal" checked> PayPal
+                                    </label>
+                                </td>
+                                <td>
+                                    <label>
+                                        <input type="radio" name="paymentMethod" value="cod"> Thanh toán khi nhận hàng
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="hidden" name="CodeCustomer" value="@Session["IDCus"]" required /></td>
+                            </tr>
 
-                            }
-
-                            <td colspan="6" style="text-align:right;font-size:20px;color:#ee4d2d">
-                                <hr />
-                                @if (System.Web.HttpContext.Current.Session != null && System.Web.HttpContext.Current.Session["PriceAfterDis"] != null)
-                                {
-                                    int? intValue = System.Web.HttpContext.Current.Session["perCentDis"] as int?;
-                                    if (intValue.HasValue)
+                            <tr>
+                                <td>Địa chỉ giao hàng:</td>
+                                <td><input type="text" name="DiaDiemGiaoHang" required /></td>
+                            </tr>
+                            <tr>
+                                <td>Số điện thoại:</td>
+                                <td><input type="text" name="PhoneNumber" required /></td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" style="text-align:right;font-size:20px;color:#ee4d2d">
+                                    <hr />
+                                    @if (System.Web.HttpContext.Current.Session != null && System.Web.HttpContext.Current.Session["PriceAfterDis"] != null)
                                     {
-                                        <p>
-                                            Tổng tiền: @String.Format("{0:0,0}", Session["PriceAfterDis"]) ₫
-                                        </p>
+                                        int? intValue = System.Web.HttpContext.Current.Session["perCentDis"] as int?;
+                                        if (intValue.HasValue)
+                                        {
+                                            <p>
+                                                Tổng tiền: @String.Format("{0:0,0}", Session["PriceAfterDis"]) ₫
+                                            </p>
+
+                                        }
 
                                     }
+                                    else
+                                    {
 
-                                }
-                                else
-                                {
+                                        <p>
+                                            <span style="font-size:25px; font-weight:bold">Tổng tiền:</span> @String.Format("{0:0,0}", Double.Parse(@ViewBag.TongTien.ToString())) ₫
+                                        </p>
+                                        ViewBag.Message = "Mã voucher không tồn tại.";
 
-                                    <p>
-                                        <span style="font-size:25px; font-weight:bold">Tổng tiền:</span> @String.Format("{0:0,0}", Double.Parse(@ViewBag.TongTien.ToString())) ₫
-                                    </p>
-                                    ViewBag.Message = "Mã voucher không tồn tại.";
-
-                                }
-                            </td>
-                            @if (Session["UserName"] != null)
-                            {
-                                <a href="
-                @Url.Action("PaymentWithPaypal", "Cart" )
-                " style=" display: inline-block; border-radius: 5px; padding: 10px 20px; font-size: 16px; font-weight: bold; text-align: center; text-decoration: none; color: #fff; background-color: #007bff; border: none; cursor: pointer; transition: background-color 0.3s ease; position: relative; top: 14rem;">Thanh Toán</a>
-                            }
-                        </table>
-                    }
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" style="text-align:right;font-size:20px;color:#ee4d2d">
+                                    <hr />
+                                    <button style="display: inline-block;
+                                                 border-radius: 5px;
+                                                 padding: 10px 20px;
+                                                 font-size: 16px;
+                                                 font-weight: bold;
+                                                 text-align: center;
+                                                 text-decoration: none;
+                                                 color: #fff;
+                                                 background-color: #007bff;
+                                                 border: none;
+                                                 cursor: pointer;
+                                                 transition: background-color 0.3s ease;
+                                                 position: relative;
+                                                 bottom: 2.5rem"
+                                            type="submit">
+                                        Thanh toán
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </table>
                 </td>
             </tr>
-        <td>
-            <a style="color:orangered; text-decoration:none;" href="@Url.Action("Index_user","SanPhams_new")">Tìm các sản phẩm khác</a>
-        </td>
-        </tfoot>
+        </tfoot>    </form>
     </table>
+    <a style="color:orangered; text-decoration:none;" href="@Url.Action("Index_user","SanPhams_new")">Tìm các sản phẩm khác</a>
 </div>

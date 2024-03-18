@@ -9,7 +9,6 @@
 
 namespace Shopee_Food.Models
 {
-    using PayPal.Api;
     using System;
     using System.Collections.Generic;
     
@@ -19,10 +18,11 @@ namespace Shopee_Food.Models
         public DonHang()
         {
             this.HoaDons = new HashSet<HoaDon>();
+            this.DonHangChiTiets = new HashSet<DonHangChiTiet>();
+            this.ThanhToans = new HashSet<ThanhToan>();
         }
     
         public int MaDH { get; set; }
-        public int MaKH { get; set; }
         public string DiaDiemGiaoHang { get; set; }
         public Nullable<System.DateTime> NgayDat { get; set; }
         public Nullable<System.DateTime> NgayGiao { get; set; }
@@ -31,15 +31,13 @@ namespace Shopee_Food.Models
         public Nullable<decimal> TongTien { get; set; }
         public Nullable<int> MaTK { get; set; }
     
-        public virtual KhachHang KhachHang { get; set; }
         public virtual SanPham SanPham { get; set; }
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoaDon> HoaDons { get; set; }
-        public virtual User User { get; set; }
-
-        public static implicit operator Payment(DonHang v)
-        {
-            throw new NotImplementedException();
-        }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DonHangChiTiet> DonHangChiTiets { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ThanhToan> ThanhToans { get; set; }
     }
 }

@@ -39,10 +39,6 @@ namespace Shopee_Food.Controllers
 
         public List<MatHangMua> getCarts()
         {
-            //var getTempUser = db.Users.FirstOrDefault(x => x.MaTK == 6);
-            //if (getTempUser != null)
-            //    Session["user"] = getTempUser;
-
             var getUser = Session["user"] as User;
 
             List<MatHangMua> gioHang = Session["GioHang"] as List<MatHangMua>;
@@ -74,15 +70,16 @@ namespace Shopee_Food.Controllers
 
         public ActionResult AddProduct(int MaSP)
         {
-            var getuser = Session["user"] as User;
-            if (getuser != null)
+            User getUser = Session["UserName"] as User;
+
+            if (getUser != null)
             {
                 var checkProduct = db.GioHangs.Where(x => x.MaSP == MaSP).FirstOrDefault();
                 if (checkProduct == null)
                 {
                     var sp = new GioHang()
                     {
-                        id_user = getuser.MaTK,
+                        id_user = getUser.MaTK,
                         MaSP = MaSP,
                         quantity = 1,
                     };
@@ -154,7 +151,8 @@ namespace Shopee_Food.Controllers
                 sanpham.Amount = SoLuong;
                 //db.carts.FirstOrDefault(x => x.MaDT == MaDT).quantity = SoLuong;
 
-                var getuser = Session["UserName"] as User;
+                string user = (string)Session["UserName"];
+                User getuser = db.Users.FirstOrDefault(u => u.TaiKhoan == user);
 
                 if (getuser != null)
                 {
@@ -209,7 +207,7 @@ namespace Shopee_Food.Controllers
             if (check != null)
             {
                 // Nếu tìm thấy voucher, lấy giá trị PhanTramDis
-                int perCentDis = check.GetValue("Discount").AsInt32;
+                int perCentDis = (int)check.GetValue("Discount").ToDouble();
 
                 // Lưu giá trị vào Session
                 Session["perCentDis"] = perCentDis;
@@ -236,7 +234,7 @@ namespace Shopee_Food.Controllers
             return (double)totalAfterDiscount;
         }
 
-        public ActionResult PaymentWithPaypal(string Cancel = null)
+        public ActionResult PaymentWithPaypal(string DiaDiemGiaoHang)
         {
             //getting the apiContext
             APIContext apiContext = PaypalConfiguration.GetAPIContext();
@@ -286,8 +284,62 @@ namespace Shopee_Food.Controllers
                     }
                     else
                     {
-                        var getUser = Session["UserName"] as User;
+                        string user = (string)Session["UserName"];
+                        User getUser = db.Users.FirstOrDefault(u => u.TaiKhoan == user);
                         //Help me save info order
+                        List<MatHangMua> cart = Session["GioHang"] as List<MatHangMua>;
+
+                        decimal totalM = 0;
+
+                        foreach (var i in cart)
+                        {
+                            totalM += i.Amount * (decimal)i.Price;
+                        }
+                        Session["total"] = totalM;
+
+                        var DonHangTemp = new DonHang
+                        {
+                            MaTK = getUser.MaTK,
+                            MaSP = 0,
+                            DiaDiemGiaoHang = DiaDiemGiaoHang,
+                            NgayDat = DateTime.Now,
+                            NgayGiao = DateTime.Now.AddDays(3), // Assuming delivery after 3 days
+                            TrangThai = "pending",
+                            TongTien = Session["total"] as decimal?,
+                        };
+
+                        db.DonHangs.Add(DonHangTemp);
+                        db.SaveChanges();
+
+                        ViewBag.User = getUser;
+                        ViewBag.Order = DonHangTemp;
+                        ViewBag.ListOrderItem = cart;
+                        ViewBag.paymentType = "PayPal";
+
+                        foreach (var i in cart)
+                        {
+                            decimal totalTemp = i.Amount * (decimal)i.Price;
+                            var CTDH = new DonHangChiTiet
+                            {
+                                MaDH = DonHangTemp.MaDH,
+                                MaSP = i.MaSP,
+                                Soluong = i.Amount,
+                                Tongtien = (int?)totalTemp,
+                            };
+
+                            db.DonHangChiTiets.Add(CTDH);
+                            db.SaveChanges();
+                        }
+                        //Thanh toan thanh cong
+                        var thanhToan = new ThanhToan
+                        {
+                            MaTK = getUser.MaTK,
+                            MaDH = DonHangTemp.MaDH,
+                            PTTT = "PayPal",
+                            NgayThanhToan = DateTime.Now,
+                        };
+                        db.ThanhToans.Add(thanhToan);
+                        db.SaveChanges();
 
                         //on successful payment, show success page to user.
                         List<MatHangMua> gioHang = getCarts();
@@ -298,78 +350,18 @@ namespace Shopee_Food.Controllers
                             db.GioHangs.RemoveRange(getcart);
                             db.SaveChanges();
                         }
+
                         gioHang.Clear();
                         Session["GioHang"] = gioHang;
                         return View("CheckOut_Success");
                     }
-
-                    //else
-                    //{
-                    //    //ViewBag.Message = "Thanh toán thành công";
-                    //    //return View("SuccessView");
-                    //    var getUser = Session["UserName"] as User;
-                    //    if (getUser == null)
-                    //    {
-                    //        return View("Error");
-                    //    }
-                    //    else
-                    //    {
-                    //        List<MatHangMua> cart = Session["GioHang"] as List<MatHangMua>;
-
-                    //        decimal totalM = 0;
-
-                    //        foreach (var i in cart)
-                    //        {
-                    //            totalM += i.Amount * (decimal)i.Price;
-                    //        }
-                    //        Session["total"] = totalM;
-
-                    //        var DonHangTemp = new DonHang
-                    //        {
-                    //            MaTK = getUser.MaTK,
-                    //            DiaDiemGiaoHang = getUser.DiaChi,
-                    //            NgayDat = DateTime.Now,
-                    //            NgayGiao = DateTime.Now,
-                    //            TrangThai = "pending",
-                    //            //PTTT = false,
-                    //            TongTien = Session["total"] as decimal?,
-                    //        };
-
-                    //        db.DonHangs.Add(DonHangTemp);
-                    //        db.SaveChanges();
-
-                    //        ViewBag.User = getUser;
-                    //        ViewBag.Order = DonHangTemp;
-                    //        ViewBag.ListOrderItem = cart;
-                    //        ViewBag.paymentType = "Thanh Toán khi Nhận Hàng";
-
-                    //        foreach (var i in cart)
-                    //        {
-                    //            decimal totalTemp = i.Amount * (decimal)i.Price;
-                    //            var CTDH = new DonHangChiTiet
-                    //            {
-                    //                //MaHD = DonHangTemp.MaDH,
-                    //                MaSP = i.MaSP,
-                    //                Soluong = i.Amount,
-                    //                Tongtien = (int?)totalTemp,
-                    //            };
-
-                    //            db.DonHangChiTiets.Add(CTDH);
-                    //            db.SaveChanges();
-                    //        }
-
-                    //        Session["GioHang"] = null;
-                    //        Session["totalCart"] = 0;
-
-                    //        return View("CheckOut_Success");
-                    //    }
-                    //}
                 }
             }
             catch (Exception ex)
             {
                 //Logger.Log("Error", ex.Message);
                 ViewBag.Message = "Error! " + ex.Message;
+
                 return View("FailureView");
             }
         }
@@ -449,6 +441,97 @@ namespace Shopee_Food.Controllers
             };
             // Create a payment using a APIContext
             return this.payment.Create(apiContext);
+        }
+
+        [HttpPost]
+        public ActionResult PaymentChoice(string paymentMethod, string DiaDiemGiaoHang)
+        {
+            switch (paymentMethod)
+            {
+                case "paypal":
+                    // Handle PayPal payment
+                    return PaymentWithPaypal(DiaDiemGiaoHang);
+
+                case "cod":
+                    // Handle Cash on Delivery payment
+                    return PaymentWithCOD(DiaDiemGiaoHang);
+
+                default:
+                    // Handle default case or throw an error
+                    break;
+            }
+            return View("CheckOut_Success");
+            // Continue with the rest of the method
+        }
+
+        private ActionResult PaymentWithCOD(string DiaDiemGiaoHang)
+        {
+            string getUser = (string)Session["UserName"];
+            User user = db.Users.FirstOrDefault(u => u.TaiKhoan == getUser);
+
+            // Handle the case where the user is not found in the session
+            if (getUser == null)
+            {
+                // Redirect to the login page or handle appropriately
+                return RedirectToAction("LoginCus", "Users_new");
+            }
+
+            // Retrieve the cart from the session
+            var cart = Session["GioHang"] as List<MatHangMua>;
+
+            // Handle the case where the cart is empty or not found in the session
+            if (cart == null || !cart.Any())
+            {
+                // Redirect to the home page or handle appropriately
+                return RedirectToAction("Index", "Home");
+            }
+
+            // Calculate the total amount of the order
+            decimal totalM = cart.Sum(item => item.Amount * (decimal)item.Price);
+            Session["total"] = totalM;
+
+            // Create a new order
+            var order = new DonHang
+            {
+                MaTK = user.MaTK,
+                MaSP = 0,
+                DiaDiemGiaoHang = DiaDiemGiaoHang,
+                NgayDat = DateTime.Now,
+                NgayGiao = DateTime.Now.AddDays(3), // Assuming delivery after 3 days
+                TrangThai = "pending",
+                TongTien = totalM
+            };
+
+            // Add the order to the database
+            db.DonHangs.Add(order);
+            db.SaveChanges();
+
+            // Add order details for each item in the cart
+            foreach (var item in cart)
+            {
+                decimal totalTemp = item.Amount * (decimal)item.Price;
+                var orderDetail = new DonHangChiTiet
+                {
+                    MaSP = item.MaSP,
+                    Soluong = item.Amount,
+                    Tongtien = (int?)totalTemp,
+                    MaDH = order.MaDH // Link the order detail to the order
+                };
+
+                // Add the order detail to the database
+                db.DonHangChiTiets.Add(orderDetail);
+            }
+
+            // Save all changes to the database
+            db.SaveChanges();
+
+            // Clear the cart and update session variables
+            cart.Clear();
+            Session["GioHang"] = cart;
+            Session["totalCart"] = 0;
+
+            // Redirect to the checkout success page
+            return View("CheckOut_Success");
         }
     }
 }

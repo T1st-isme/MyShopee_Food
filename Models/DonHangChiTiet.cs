@@ -19,7 +19,9 @@ namespace Shopee_Food.Models
         public Nullable<int> Soluong { get; set; }
         public Nullable<int> Gia { get; set; }
         public Nullable<int> Tongtien { get; set; }
+        public int MaDH { get; set; }
     
+        public virtual DonHang DonHang { get; set; }
         public virtual SanPham SanPham { get; set; }
     }
 }

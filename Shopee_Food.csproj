@@ -381,6 +381,8 @@
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Admin\map\mapNhanVien.cs" />
     <Compile Include="Areas\Admin\map\mapTaiKhoan.cs" />
+    <Compile Include="Areas\Admin\Pattern\ProductAD\IProductADRepository.cs" />
+    <Compile Include="Areas\Admin\Pattern\ProductAD\ProductADRepository.cs" />
     <Compile Include="Areas\Admin\ShopVM.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
@@ -398,10 +400,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\ChucVu.cs">
       <DependentUpon>DBShopeeFood.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\DanhMuc.cs">
       <DependentUpon>DBShopeeFood.tt</DependentUpon>
     </Compile>
@@ -409,6 +411,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DBShopeeFood.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBShopeeFood.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBShopeeFood.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DBShopeeFood.cs">
       <AutoGen>True</AutoGen>
@@ -464,6 +471,9 @@
     </Compile>
     <Compile Include="Models\Voucher.cs" />
     <Compile Include="MongoDBContext\MongoDBContext.cs" />
+    <Compile Include="Pattern\Cate\CateRepository.cs" />
+    <Compile Include="Pattern\Cate\Repository.cs" />
+    <Compile Include="Pattern\Product\IProductRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -2647,16 +2657,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\DBShopeeFood.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DBShopeeFood.edmx</DependentUpon>
-      <LastGenOutput>DBShopeeFood.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\DBShopeeFood.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DBShopeeFood.edmx</DependentUpon>
-      <LastGenOutput>DBShopeeFood.cs</LastGenOutput>
-    </Content>
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Shared\Admin_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\AdHome\Index.cshtml" />
@@ -2810,13 +2810,6 @@
     <Content Include="Content\plugins\summernote\summernote.js.map" />
     <Content Include="Content\plugins\summernote\summernote.min.js.map" />
     <Content Include="Content\plugins\toastr\toastr.js.map" />
-    <EntityDeploy Include="Models\DBShopeeFood.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DBShopeeFood.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\DBShopeeFood.edmx.diagram">
-      <DependentUpon>DBShopeeFood.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\Admin\Views\Shops\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Shops\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Shops\Details.cshtml" />
@@ -2921,6 +2914,16 @@
     <Content Include="Areas\Admin\Views\SanPhamsAd\Index.cshtml" />
     <Content Include="Areas\Admin\Views\AdHome\Login.cshtml" />
     <Content Include="Areas\Admin\Views\Error\KoCoQuyen.cshtml" />
+    <Content Include="Models\DBShopeeFood.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DBShopeeFood.edmx</DependentUpon>
+      <LastGenOutput>DBShopeeFood.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DBShopeeFood.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DBShopeeFood.edmx</DependentUpon>
+      <LastGenOutput>DBShopeeFood.cs</LastGenOutput>
+    </Content>
     <Content Include="mongocrypt.dll" />
     <Content Include="Scripts\axios.js" />
     <Content Include="Scripts\axios.min.js" />
@@ -2954,6 +2957,13 @@
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="libmongocrypt.so" />
     <Content Include="libmongocrypt.dylib" />
+    <EntityDeploy Include="Models\DBShopeeFood.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DBShopeeFood.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DBShopeeFood.edmx.diagram">
+      <DependentUpon>DBShopeeFood.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />

@@ -34,9 +34,10 @@ namespace Shopee_Food.Controllers
                 if (check_ID == null)
                 {
                     db.Configuration.ValidateOnSaveEnabled = false;
+                    _user.HoTen = _user.TaiKhoan;
                     db.Users.Add(_user);
                     db.SaveChanges();
-                    return RedirectToAction("LoginCus", "User_new");
+                    return RedirectToAction("LoginCus", "Users_new");
                 }
                 else
                 {
@@ -58,14 +59,9 @@ namespace Shopee_Food.Controllers
         [HttpPost]
         public ActionResult LoginCus(User _cus)
         {
-            // check là khách hàng cần tìm
-            var check = db.Users.Where(s => s.TaiKhoan == _cus.TaiKhoan && s.MatKhau == _cus.MatKhau).FirstOrDefault();
-            if (check == null)  //không có KH
-            {
-                ViewBag.ErrorInfo = "Không có KH này";
-                return View("LoginCus");
-            }
-            else if (check.TaiKhoan == _cus.TaiKhoan && check.MatKhau != _cus.MatKhau)
+            // check the user based on the username
+            var check = db.Users.FirstOrDefault(s => s.TaiKhoan == _cus.TaiKhoan && s.MatKhau == _cus.MatKhau);
+            if (check == null)  // no user found
             {
                 ViewBag.ErrorInfo = "Tài khoản hoặc mật khẩu không đúng";
                 return View("LoginCus");

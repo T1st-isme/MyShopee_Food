@@ -1,76 +1,82 @@
 ﻿@model IEnumerable<Shopee_Food.Models.SanPham>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Thêm sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+    int i = 0;
 }
-
-<h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="/Admin/Shops/Create"
+       class="btn btn-primary">Thêm sản phẩm</a>
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TenSP)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Loai)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DonGia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Soluongdaban)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Soluongton)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DanhMuc.TenDanhMuc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DanhMuc1.TenDanhMuc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Shop.TenShop)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenSP)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Loai)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DonGia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Soluongdaban)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Soluongton)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DanhMuc.TenDanhMuc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DanhMuc1.TenDanhMuc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Shop.TenShop)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MaSP }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MaSP }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MaSP })
-        </td>
-    </tr>
-}
+<div>
+    <form>
+        <select name="danhgia" value="@ViewBag.DanhGia">
+            <option>Tất cả</option>
+            @foreach (var item in new Shopee_Food.Areas.Admin.map.mapNhanVien().DanhSach())
+            {
+                <option value="@item.DanhGia" @Html.Raw(item.DanhGia == ViewBag.DanhGia ? "selected" : "")>@item.DanhGia</option>
+            }
+        </select>
+        <input name="tukhoa" value="@ViewBag.TimKiem" />
+        <button>
+            Tìm kiếm
+        </button>
+    </form>
+</div>
 
-</table>
+<div class="card-body">
+    <table class="table table-bordered table-responsive-md table-striped">
+        <thead style="color:cadetblue">
+            <tr>
+                <th width="50px" align="center">STT</th>
+                <th width="250px"> Tên sản phẩm</th>
+                <th>Loại</th>
+                <th> Số lượng đã bán</th>
+                <th width="200px"> Số lượng tồn</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                i++;
+                <tr>
+                    <td align="center">@i</td>
+                    <td>
+                        @item.TenSP
+                    </td>
+                    <td>
+                        @item.Loai
+                    </td>
+                    <td>
+                        @item.Soluongdaban
+                    </td>
+                    <td>
+                        @item.Soluongton
+                    </td>
+
+                    <td>
+                        <a class="btn btn-info btn-sm" href="/Admin/SanPhamsAd/Edit/@item.MaSP">
+                            <i class="fas fa-pencil-alt">
+                            </i>
+                            Sửa
+                        </a>
+                        <a class="btn btn-primary btn-sm" href="/Admin/SanPhamsAd/Details/@item.MaSP">
+                            <i class="fas fa-folder">
+                            </i>
+                            Chi tiết
+                        </a>
+                        <a class="btn btn-danger btn-sm" href="/Admin/SanPhamsAd/Delete/@item.MaSP">
+                            <i class="fas fa-trash">
+                            </i>
+                            Xóa
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

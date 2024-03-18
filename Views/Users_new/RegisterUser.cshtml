@@ -1,7 +1,7 @@
 ﻿@model Shopee_Food.Models.User
 
 @{
-    ViewBag.Title = "Dang kí";
+    ViewBag.Title = "Đăng kí";
     Layout = "~/Views/Shared/_DangkiUser.cshtml";
 }
 
@@ -27,7 +27,7 @@
                     Đăng Kí
                 </span>
                 <div class="login100-form validate-form p-b-33 p-t-5">
-                    @using (Html.BeginForm("LoginCus", "Users_new", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    @using (Html.BeginForm("RegisterUser", "Users_new", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         @Html.AntiForgeryToken()
 

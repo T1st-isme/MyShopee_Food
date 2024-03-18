@@ -18,7 +18,6 @@ namespace Shopee_Food.Models
         public DanhMuc()
         {
             this.SanPhams = new HashSet<SanPham>();
-            this.SanPhams1 = new HashSet<SanPham>();
         }
     
         public int MaDM { get; set; }
@@ -26,7 +25,5 @@ namespace Shopee_Food.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SanPham> SanPhams { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SanPham> SanPhams1 { get; set; }
     }
 }

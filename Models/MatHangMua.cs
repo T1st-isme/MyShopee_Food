@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 
 namespace Shopee_Food.Models
 {
@@ -25,7 +22,7 @@ namespace Shopee_Food.Models
             this.MaSP = MaSP;
             this.TenSp = getSP.TenSP.ToString();
             //this.TenSp = "Com suon";
-            this.img = getSP.HinhSP.ToString();
+            //this.img = getSP.HinhSP.ToString();
             this.Price = double.Parse(getSP.DonGia.ToString());
             this.Amount = 1;
         }

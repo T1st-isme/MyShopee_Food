@@ -1,4 +1,7 @@
 ﻿using Shopee_Food.App_Start;
+using Shopee_Food.Areas.Admin.Pattern.ProductAD;
+using Shopee_Food.Models;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -6,10 +9,20 @@ namespace Shopee_Food.Areas.Admin.Controllers
 {
     public class AdHomeController : Controller
     {
-        [AdminAuth(MaCV = 3)]
+        public IProductADRepository _productADRepository;
+        private DBShopeeFoodEntities db = new DBShopeeFoodEntities();
+
+        public AdHomeController()
+        {
+            this._productADRepository = new ProductADRepository(new DBShopeeFoodEntities());
+        }
+
+        [AdminAuth(MaCV = 1)]
         public ActionResult Index()
         {
-            return View();
+            var pro = from s in _productADRepository.GetProduct()
+                      select s;
+            return View(pro);
         }
 
         public ActionResult Login()

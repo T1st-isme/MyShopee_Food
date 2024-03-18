@@ -18,8 +18,8 @@ namespace Shopee_Food.Models
         public SanPham()
         {
             this.DonHangs = new HashSet<DonHang>();
-            this.DonHangChiTiets = new HashSet<DonHangChiTiet>();
             this.GioHangs = new HashSet<GioHang>();
+            this.DonHangChiTiets = new HashSet<DonHangChiTiet>();
         }
     
         public int MaSP { get; set; }
@@ -34,13 +34,12 @@ namespace Shopee_Food.Models
         public string HinhSP { get; set; }
     
         public virtual DanhMuc DanhMuc { get; set; }
-        public virtual DanhMuc DanhMuc1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DonHang> DonHangs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DonHangChiTiet> DonHangChiTiets { get; set; }
+        public virtual ICollection<GioHang> GioHangs { get; set; }
         public virtual Shop Shop { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GioHang> GioHangs { get; set; }
+        public virtual ICollection<DonHangChiTiet> DonHangChiTiets { get; set; }
     }
 }

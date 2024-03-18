@@ -24,7 +24,6 @@
             <PropertyRef Name="MaDH" />
           </Key>
           <Property Name="MaDH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MaKH" Type="int" Nullable="false" />
           <Property Name="DiaDiemGiaoHang" Type="nvarchar" MaxLength="50" />
           <Property Name="NgayDat" Type="date" />
           <Property Name="NgayGiao" Type="date" />
@@ -42,6 +41,7 @@
           <Property Name="Soluong" Type="int" />
           <Property Name="Gia" Type="int" />
           <Property Name="Tongtien" Type="int" />
+          <Property Name="MaDH" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="GioHang">
           <Key>
@@ -143,6 +143,8 @@
           <Property Name="STK" Type="nvarchar" MaxLength="20" />
           <Property Name="PTTT" Type="nvarchar" MaxLength="20" />
           <Property Name="MaTK" Type="int" />
+          <Property Name="MaDH" Type="int" />
+          <Property Name="NgayThanhToan" Type="date" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -159,18 +161,6 @@
           <Property Name="ChucVu" Type="nvarchar" MaxLength="50" />
           <Property Name="CCCD" Type="varchar" MaxLength="20" />
         </EntityType>
-        <Association Name="FK__DonHang__MaSP__7E37BEF6">
-          <End Role="SanPham" Type="Self.SanPham" Multiplicity="1" />
-          <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SanPham">
-              <PropertyRef Name="MaSP" />
-            </Principal>
-            <Dependent Role="DonHang">
-              <PropertyRef Name="MaSP" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__DonHang__MaTK__7D439ABD">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
@@ -183,7 +173,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DonHangChi__MaSP__797309D9">
+        <Association Name="FK__DonHangChi__MaHD__5165187F">
+          <End Role="DonHang" Type="Self.DonHang" Multiplicity="1" />
+          <End Role="DonHangChiTiet" Type="Self.DonHangChiTiet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonHang">
+              <PropertyRef Name="MaDH" />
+            </Principal>
+            <Dependent Role="DonHangChiTiet">
+              <PropertyRef Name="MaDH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DonHangChi__MaSP__5070F446">
           <End Role="SanPham" Type="Self.SanPham" Multiplicity="1" />
           <End Role="DonHangChiTiet" Type="Self.DonHangChiTiet" Multiplicity="*" />
           <ReferentialConstraint>
@@ -195,7 +197,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__HoaDon__MaDH__7F2BE32F">
+        <Association Name="FK__HoaDon__MaDH__59FA5E80">
           <End Role="DonHang" Type="Self.DonHang" Multiplicity="1" />
           <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
           <ReferentialConstraint>
@@ -207,7 +209,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__HoaDon__MaKH__00200768">
+        <Association Name="FK__HoaDon__MaKH__59063A47">
           <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="1" />
           <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
           <ReferentialConstraint>
@@ -219,7 +221,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__HoaDon__MaNV__01142BA1">
+        <Association Name="FK__HoaDon__MaNV__5812160E">
           <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="1" />
           <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
           <ReferentialConstraint>
@@ -231,7 +233,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__KhachHang__MaTK__7B5B524B">
+        <Association Name="FK__KhachHang__MaTK__3C69FB99">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="*" />
           <ReferentialConstraint>
@@ -243,7 +245,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__NhanVien__MaTK__7A672E12">
+        <Association Name="FK__NhanVien__MaTK__3F466844">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="*" />
           <ReferentialConstraint>
@@ -255,7 +257,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SanPham__MaDM__76969D2E">
+        <Association Name="FK__SanPham__MaDM__49C3F6B7">
           <End Role="DanhMuc" Type="Self.DanhMuc" Multiplicity="1" />
           <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
           <ReferentialConstraint>
@@ -267,19 +269,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SanPham__MaDM__778AC167">
-          <End Role="DanhMuc" Type="Self.DanhMuc" Multiplicity="1" />
-          <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DanhMuc">
-              <PropertyRef Name="MaDM" />
-            </Principal>
-            <Dependent Role="SanPham">
-              <PropertyRef Name="MaDM" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__SanPham__MaShop__787EE5A0">
+        <Association Name="FK__SanPham__MaShop__48CFD27E">
           <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
           <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
           <ReferentialConstraint>
@@ -291,7 +281,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Shop__MaTK__74AE54BC">
+        <Association Name="FK__Shop__MaTK__45F365D3">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Shop" Type="Self.Shop" Multiplicity="*" />
           <ReferentialConstraint>
@@ -367,6 +357,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="ThanhToan_DonHang_MaDH_fk">
+          <End Role="DonHang" Type="Self.DonHang" Multiplicity="0..1" />
+          <End Role="ThanhToan" Type="Self.ThanhToan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonHang">
+              <PropertyRef Name="MaDH" />
+            </Principal>
+            <Dependent Role="ThanhToan">
+              <PropertyRef Name="MaDH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DBShopeeFoodModelStoreContainer">
           <EntitySet Name="ChucVu" EntityType="Self.ChucVu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DanhMuc" EntityType="Self.DanhMuc" Schema="dbo" store:Type="Tables" />
@@ -382,51 +384,47 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ThanhToan" EntityType="Self.ThanhToan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__DonHang__MaSP__7E37BEF6" Association="Self.FK__DonHang__MaSP__7E37BEF6">
-            <End Role="SanPham" EntitySet="SanPham" />
-            <End Role="DonHang" EntitySet="DonHang" />
-          </AssociationSet>
           <AssociationSet Name="FK__DonHang__MaTK__7D439ABD" Association="Self.FK__DonHang__MaTK__7D439ABD">
             <End Role="Users" EntitySet="Users" />
             <End Role="DonHang" EntitySet="DonHang" />
           </AssociationSet>
-          <AssociationSet Name="FK__DonHangChi__MaSP__797309D9" Association="Self.FK__DonHangChi__MaSP__797309D9">
+          <AssociationSet Name="FK__DonHangChi__MaHD__5165187F" Association="Self.FK__DonHangChi__MaHD__5165187F">
+            <End Role="DonHang" EntitySet="DonHang" />
+            <End Role="DonHangChiTiet" EntitySet="DonHangChiTiet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DonHangChi__MaSP__5070F446" Association="Self.FK__DonHangChi__MaSP__5070F446">
             <End Role="SanPham" EntitySet="SanPham" />
             <End Role="DonHangChiTiet" EntitySet="DonHangChiTiet" />
           </AssociationSet>
-          <AssociationSet Name="FK__HoaDon__MaDH__7F2BE32F" Association="Self.FK__HoaDon__MaDH__7F2BE32F">
+          <AssociationSet Name="FK__HoaDon__MaDH__59FA5E80" Association="Self.FK__HoaDon__MaDH__59FA5E80">
             <End Role="DonHang" EntitySet="DonHang" />
             <End Role="HoaDon" EntitySet="HoaDon" />
           </AssociationSet>
-          <AssociationSet Name="FK__HoaDon__MaKH__00200768" Association="Self.FK__HoaDon__MaKH__00200768">
+          <AssociationSet Name="FK__HoaDon__MaKH__59063A47" Association="Self.FK__HoaDon__MaKH__59063A47">
             <End Role="KhachHang" EntitySet="KhachHang" />
             <End Role="HoaDon" EntitySet="HoaDon" />
           </AssociationSet>
-          <AssociationSet Name="FK__HoaDon__MaNV__01142BA1" Association="Self.FK__HoaDon__MaNV__01142BA1">
+          <AssociationSet Name="FK__HoaDon__MaNV__5812160E" Association="Self.FK__HoaDon__MaNV__5812160E">
             <End Role="NhanVien" EntitySet="NhanVien" />
             <End Role="HoaDon" EntitySet="HoaDon" />
           </AssociationSet>
-          <AssociationSet Name="FK__KhachHang__MaTK__7B5B524B" Association="Self.FK__KhachHang__MaTK__7B5B524B">
+          <AssociationSet Name="FK__KhachHang__MaTK__3C69FB99" Association="Self.FK__KhachHang__MaTK__3C69FB99">
             <End Role="Users" EntitySet="Users" />
             <End Role="KhachHang" EntitySet="KhachHang" />
           </AssociationSet>
-          <AssociationSet Name="FK__NhanVien__MaTK__7A672E12" Association="Self.FK__NhanVien__MaTK__7A672E12">
+          <AssociationSet Name="FK__NhanVien__MaTK__3F466844" Association="Self.FK__NhanVien__MaTK__3F466844">
             <End Role="Users" EntitySet="Users" />
             <End Role="NhanVien" EntitySet="NhanVien" />
           </AssociationSet>
-          <AssociationSet Name="FK__SanPham__MaDM__76969D2E" Association="Self.FK__SanPham__MaDM__76969D2E">
+          <AssociationSet Name="FK__SanPham__MaDM__49C3F6B7" Association="Self.FK__SanPham__MaDM__49C3F6B7">
             <End Role="DanhMuc" EntitySet="DanhMuc" />
             <End Role="SanPham" EntitySet="SanPham" />
           </AssociationSet>
-          <AssociationSet Name="FK__SanPham__MaDM__778AC167" Association="Self.FK__SanPham__MaDM__778AC167">
-            <End Role="DanhMuc" EntitySet="DanhMuc" />
-            <End Role="SanPham" EntitySet="SanPham" />
-          </AssociationSet>
-          <AssociationSet Name="FK__SanPham__MaShop__787EE5A0" Association="Self.FK__SanPham__MaShop__787EE5A0">
+          <AssociationSet Name="FK__SanPham__MaShop__48CFD27E" Association="Self.FK__SanPham__MaShop__48CFD27E">
             <End Role="Shop" EntitySet="Shop" />
             <End Role="SanPham" EntitySet="SanPham" />
           </AssociationSet>
-          <AssociationSet Name="FK__Shop__MaTK__74AE54BC" Association="Self.FK__Shop__MaTK__74AE54BC">
+          <AssociationSet Name="FK__Shop__MaTK__45F365D3" Association="Self.FK__Shop__MaTK__45F365D3">
             <End Role="Users" EntitySet="Users" />
             <End Role="Shop" EntitySet="Shop" />
           </AssociationSet>
@@ -450,144 +448,59 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="PhanQuyen" EntitySet="PhanQuyen" />
           </AssociationSet>
+          <AssociationSet Name="ThanhToan_DonHang_MaDH_fk" Association="Self.ThanhToan_DonHang_MaDH_fk">
+            <End Role="DonHang" EntitySet="DonHang" />
+            <End Role="ThanhToan" EntitySet="ThanhToan" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBShopeeFoodModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="DBShopeeFoodEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ChucVus" EntityType="DBShopeeFoodModel.ChucVu" />
-          <EntitySet Name="DanhMucs" EntityType="DBShopeeFoodModel.DanhMuc" />
-          <EntitySet Name="DonHangs" EntityType="DBShopeeFoodModel.DonHang" />
-          <EntitySet Name="DonHangChiTiets" EntityType="DBShopeeFoodModel.DonHangChiTiet" />
-          <EntitySet Name="HoaDons" EntityType="DBShopeeFoodModel.HoaDon" />
-          <EntitySet Name="KhachHangs" EntityType="DBShopeeFoodModel.KhachHang" />
-          <EntitySet Name="NhanViens" EntityType="DBShopeeFoodModel.NhanVien" />
-          <EntitySet Name="PhanQuyens" EntityType="DBShopeeFoodModel.PhanQuyen" />
-          <EntitySet Name="SanPhams" EntityType="DBShopeeFoodModel.SanPham" />
-          <EntitySet Name="Shops" EntityType="DBShopeeFoodModel.Shop" />
-          <EntitySet Name="sysdiagrams" EntityType="DBShopeeFoodModel.sysdiagram" />
-          <EntitySet Name="ThanhToans" EntityType="DBShopeeFoodModel.ThanhToan" />
-          <EntitySet Name="Users" EntityType="DBShopeeFoodModel.User" />
-          <AssociationSet Name="FK_PhanQuyen_ChucVu" Association="DBShopeeFoodModel.FK_PhanQuyen_ChucVu">
-            <End Role="ChucVu" EntitySet="ChucVus" />
-            <End Role="PhanQuyen" EntitySet="PhanQuyens" />
-          </AssociationSet>
-          <AssociationSet Name="FK__SanPham__MaDM__76969D2E" Association="DBShopeeFoodModel.FK__SanPham__MaDM__76969D2E">
-            <End Role="DanhMuc" EntitySet="DanhMucs" />
-            <End Role="SanPham" EntitySet="SanPhams" />
-          </AssociationSet>
-          <AssociationSet Name="FK__SanPham__MaDM__778AC167" Association="DBShopeeFoodModel.FK__SanPham__MaDM__778AC167">
-            <End Role="DanhMuc" EntitySet="DanhMucs" />
-            <End Role="SanPham" EntitySet="SanPhams" />
-          </AssociationSet>
-          <AssociationSet Name="FK__DonHang__MaKH__7D439ABD" Association="DBShopeeFoodModel.FK__DonHang__MaKH__7D439ABD">
-            <End Role="KhachHang" EntitySet="KhachHangs" />
-            <End Role="DonHang" EntitySet="DonHangs" />
-          </AssociationSet>
-          <AssociationSet Name="FK__DonHang__MaSP__7E37BEF6" Association="DBShopeeFoodModel.FK__DonHang__MaSP__7E37BEF6">
-            <End Role="SanPham" EntitySet="SanPhams" />
-            <End Role="DonHang" EntitySet="DonHangs" />
-          </AssociationSet>
-          <AssociationSet Name="FK__HoaDon__MaDH__7F2BE32F" Association="DBShopeeFoodModel.FK__HoaDon__MaDH__7F2BE32F">
-            <End Role="DonHang" EntitySet="DonHangs" />
-            <End Role="HoaDon" EntitySet="HoaDons" />
-          </AssociationSet>
-          <AssociationSet Name="FK__DonHangChi__MaSP__797309D9" Association="DBShopeeFoodModel.FK__DonHangChi__MaSP__797309D9">
-            <End Role="SanPham" EntitySet="SanPhams" />
-            <End Role="DonHangChiTiet" EntitySet="DonHangChiTiets" />
-          </AssociationSet>
-          <AssociationSet Name="FK__HoaDon__MaKH__00200768" Association="DBShopeeFoodModel.FK__HoaDon__MaKH__00200768">
-            <End Role="KhachHang" EntitySet="KhachHangs" />
-            <End Role="HoaDon" EntitySet="HoaDons" />
-          </AssociationSet>
-          <AssociationSet Name="FK__HoaDon__MaNV__01142BA1" Association="DBShopeeFoodModel.FK__HoaDon__MaNV__01142BA1">
-            <End Role="NhanVien" EntitySet="NhanViens" />
-            <End Role="HoaDon" EntitySet="HoaDons" />
-          </AssociationSet>
-          <AssociationSet Name="FK__KhachHang__MaTK__7B5B524B" Association="DBShopeeFoodModel.FK__KhachHang__MaTK__7B5B524B">
-            <End Role="User" EntitySet="Users" />
-            <End Role="KhachHang" EntitySet="KhachHangs" />
-          </AssociationSet>
-          <AssociationSet Name="FK__NhanVien__MaTK__7A672E12" Association="DBShopeeFoodModel.FK__NhanVien__MaTK__7A672E12">
-            <End Role="User" EntitySet="Users" />
-            <End Role="NhanVien" EntitySet="NhanViens" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PhanQuyen_Users" Association="DBShopeeFoodModel.FK_PhanQuyen_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="PhanQuyen" EntitySet="PhanQuyens" />
-          </AssociationSet>
-          <AssociationSet Name="FK__SanPham__MaShop__787EE5A0" Association="DBShopeeFoodModel.FK__SanPham__MaShop__787EE5A0">
-            <End Role="Shop" EntitySet="Shops" />
-            <End Role="SanPham" EntitySet="SanPhams" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Shop__MaTK__74AE54BC" Association="DBShopeeFoodModel.FK__Shop__MaTK__74AE54BC">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Shop" EntitySet="Shops" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Orders_Customers" Association="DBShopeeFoodModel.FK_Orders_Customers">
-            <End Role="User" EntitySet="Users" />
-            <End Role="ThanhToan" EntitySet="ThanhToans" />
-          </AssociationSet>
-          <EntitySet Name="GioHangs" EntityType="DBShopeeFoodModel.GioHang" />
-          <AssociationSet Name="FK_id_user_cart" Association="DBShopeeFoodModel.FK_id_user_cart">
-            <End Role="User" EntitySet="Users" />
-            <End Role="GioHang" EntitySet="GioHangs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MaDT_order_item" Association="DBShopeeFoodModel.FK_MaDT_order_item">
-            <End Role="SanPham" EntitySet="SanPhams" />
-            <End Role="GioHang" EntitySet="GioHangs" />
-          </AssociationSet>
-          <AssociationSet Name="FK__DonHang__MaTK__7D439ABD" Association="DBShopeeFoodModel.FK__DonHang__MaTK__7D439ABD">
-            <End Role="User" EntitySet="Users" />
-            <End Role="DonHang" EntitySet="DonHangs" />
-          </AssociationSet>
-        </EntityContainer>
         <EntityType Name="ChucVu">
           <Key>
             <PropertyRef Name="MaCV" />
           </Key>
           <Property Name="MaCV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenCV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="PhanQuyens" Relationship="DBShopeeFoodModel.FK_PhanQuyen_ChucVu" FromRole="ChucVu" ToRole="PhanQuyen" />
+          <NavigationProperty Name="PhanQuyens" Relationship="Self.FK_PhanQuyen_ChucVu" FromRole="ChucVu" ToRole="PhanQuyen" />
         </EntityType>
         <EntityType Name="DanhMuc">
           <Key>
             <PropertyRef Name="MaDM" />
           </Key>
           <Property Name="MaDM" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenDanhMuc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="SanPhams" Relationship="DBShopeeFoodModel.FK__SanPham__MaDM__76969D2E" FromRole="DanhMuc" ToRole="SanPham" />
-          <NavigationProperty Name="SanPhams1" Relationship="DBShopeeFoodModel.FK__SanPham__MaDM__778AC167" FromRole="DanhMuc" ToRole="SanPham" />
+          <Property Name="TenDanhMuc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="SanPhams" Relationship="Self.FK__SanPham__MaDM__49C3F6B7" FromRole="DanhMuc" ToRole="SanPham" />
         </EntityType>
         <EntityType Name="DonHang">
           <Key>
             <PropertyRef Name="MaDH" />
           </Key>
           <Property Name="MaDH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MaKH" Type="Int32" Nullable="false" />
           <Property Name="DiaDiemGiaoHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NgayDat" Type="DateTime" Precision="0" />
           <Property Name="NgayGiao" Type="DateTime" Precision="0" />
           <Property Name="MaSP" Type="Int32" Nullable="false" />
           <Property Name="TrangThai" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="TongTien" Type="Decimal" Precision="10" Scale="2" />
-          <NavigationProperty Name="KhachHang" Relationship="DBShopeeFoodModel.FK__DonHang__MaKH__7D439ABD" FromRole="DonHang" ToRole="KhachHang" />
-          <NavigationProperty Name="SanPham" Relationship="DBShopeeFoodModel.FK__DonHang__MaSP__7E37BEF6" FromRole="DonHang" ToRole="SanPham" />
-          <NavigationProperty Name="HoaDons" Relationship="DBShopeeFoodModel.FK__HoaDon__MaDH__7F2BE32F" FromRole="DonHang" ToRole="HoaDon" />
           <Property Name="MaTK" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="DBShopeeFoodModel.FK__DonHang__MaTK__7D439ABD" FromRole="DonHang" ToRole="User" />
+          <NavigationProperty Name="SanPham" Relationship="Self.FK__DonHang__MaSP__4CA06362" FromRole="DonHang" ToRole="SanPham" />
+          <NavigationProperty Name="User" Relationship="Self.FK__DonHang__MaTK__7D439ABD" FromRole="DonHang" ToRole="Users" />
+          <NavigationProperty Name="HoaDons" Relationship="Self.FK__HoaDon__MaDH__59FA5E80" FromRole="DonHang" ToRole="HoaDon" />
+          <NavigationProperty Name="DonHangChiTiets" Relationship="DBShopeeFoodModel.FK__DonHangChi__MaHD__5165187F" FromRole="DonHang" ToRole="DonHangChiTiet" />
+          <NavigationProperty Name="ThanhToans" Relationship="DBShopeeFoodModel.ThanhToan_DonHang_MaDH_fk" FromRole="DonHang" ToRole="ThanhToan" />
         </EntityType>
-        <EntityType Name="DonHangChiTiet">
+        <EntityType Name="GioHang">
           <Key>
-            <PropertyRef Name="MaCTDH" />
+            <PropertyRef Name="id_GH" />
           </Key>
-          <Property Name="MaSP" Type="Int32" Nullable="false" />
-          <Property Name="MaCTDH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Soluong" Type="Int32" />
-          <Property Name="Gia" Type="Int32" />
-          <Property Name="Tongtien" Type="Int32" />
-          <NavigationProperty Name="SanPham" Relationship="DBShopeeFoodModel.FK__DonHangChi__MaSP__797309D9" FromRole="DonHangChiTiet" ToRole="SanPham" />
+          <Property Name="id_GH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_user" Type="Int32" />
+          <Property Name="MaSP" Type="Int32" />
+          <Property Name="quantity" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Self.FK_id_user_cart" FromRole="GioHang" ToRole="Users" />
+          <NavigationProperty Name="SanPham" Relationship="Self.FK_MaDT_order_item" FromRole="GioHang" ToRole="SanPham" />
         </EntityType>
         <EntityType Name="HoaDon">
           <Key>
@@ -599,9 +512,9 @@
           <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MaKH" Type="Int32" Nullable="false" />
           <Property Name="MaDH" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="DonHang" Relationship="DBShopeeFoodModel.FK__HoaDon__MaDH__7F2BE32F" FromRole="HoaDon" ToRole="DonHang" />
-          <NavigationProperty Name="KhachHang" Relationship="DBShopeeFoodModel.FK__HoaDon__MaKH__00200768" FromRole="HoaDon" ToRole="KhachHang" />
-          <NavigationProperty Name="NhanVien" Relationship="DBShopeeFoodModel.FK__HoaDon__MaNV__01142BA1" FromRole="HoaDon" ToRole="NhanVien" />
+          <NavigationProperty Name="DonHang" Relationship="Self.FK__HoaDon__MaDH__59FA5E80" FromRole="HoaDon" ToRole="DonHang" />
+          <NavigationProperty Name="KhachHang" Relationship="Self.FK__HoaDon__MaKH__59063A47" FromRole="HoaDon" ToRole="KhachHang" />
+          <NavigationProperty Name="NhanVien" Relationship="Self.FK__HoaDon__MaNV__5812160E" FromRole="HoaDon" ToRole="NhanVien" />
         </EntityType>
         <EntityType Name="KhachHang">
           <Key>
@@ -609,14 +522,13 @@
           </Key>
           <Property Name="MaKhachHang" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaTK" Type="Int32" Nullable="false" />
-          <Property Name="TenKhachHang" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TenKhachHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="NgaySinh" Type="DateTime" Precision="0" />
           <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="LoaiThanhVien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DonHangs" Relationship="DBShopeeFoodModel.FK__DonHang__MaKH__7D439ABD" FromRole="KhachHang" ToRole="DonHang" />
-          <NavigationProperty Name="HoaDons" Relationship="DBShopeeFoodModel.FK__HoaDon__MaKH__00200768" FromRole="KhachHang" ToRole="HoaDon" />
-          <NavigationProperty Name="User" Relationship="DBShopeeFoodModel.FK__KhachHang__MaTK__7B5B524B" FromRole="KhachHang" ToRole="User" />
+          <NavigationProperty Name="HoaDons" Relationship="Self.FK__HoaDon__MaKH__59063A47" FromRole="KhachHang" ToRole="HoaDon" />
+          <NavigationProperty Name="User" Relationship="Self.FK__KhachHang__MaTK__3C69FB99" FromRole="KhachHang" ToRole="Users" />
         </EntityType>
         <EntityType Name="NhanVien">
           <Key>
@@ -625,8 +537,8 @@
           <Property Name="MaNV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaTK" Type="Int32" Nullable="false" />
           <Property Name="DanhGia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="HoaDons" Relationship="DBShopeeFoodModel.FK__HoaDon__MaNV__01142BA1" FromRole="NhanVien" ToRole="HoaDon" />
-          <NavigationProperty Name="User" Relationship="DBShopeeFoodModel.FK__NhanVien__MaTK__7A672E12" FromRole="NhanVien" ToRole="User" />
+          <NavigationProperty Name="HoaDons" Relationship="Self.FK__HoaDon__MaNV__5812160E" FromRole="NhanVien" ToRole="HoaDon" />
+          <NavigationProperty Name="User" Relationship="Self.FK__NhanVien__MaTK__3F466844" FromRole="NhanVien" ToRole="Users" />
         </EntityType>
         <EntityType Name="PhanQuyen">
           <Key>
@@ -636,8 +548,8 @@
           <Property Name="MaTK" Type="Int32" Nullable="false" />
           <Property Name="MaCV" Type="Int32" Nullable="false" />
           <Property Name="GhiChu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ChucVu" Relationship="DBShopeeFoodModel.FK_PhanQuyen_ChucVu" FromRole="PhanQuyen" ToRole="ChucVu" />
-          <NavigationProperty Name="User" Relationship="DBShopeeFoodModel.FK_PhanQuyen_Users" FromRole="PhanQuyen" ToRole="User" />
+          <NavigationProperty Name="ChucVu" Relationship="Self.FK_PhanQuyen_ChucVu" FromRole="PhanQuyen" ToRole="ChucVu" />
+          <NavigationProperty Name="User" Relationship="Self.FK_PhanQuyen_Users" FromRole="PhanQuyen" ToRole="Users" />
         </EntityType>
         <EntityType Name="SanPham">
           <Key>
@@ -646,19 +558,18 @@
           <Property Name="MaSP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaShop" Type="Int32" Nullable="false" />
           <Property Name="MaDM" Type="Int32" Nullable="false" />
-          <Property Name="TenSP" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TenSP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Loai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DonGia" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="DonGia" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Soluongdaban" Type="Int32" />
           <Property Name="Soluongton" Type="Int32" />
-          <NavigationProperty Name="DanhMuc" Relationship="DBShopeeFoodModel.FK__SanPham__MaDM__76969D2E" FromRole="SanPham" ToRole="DanhMuc" />
-          <NavigationProperty Name="DanhMuc1" Relationship="DBShopeeFoodModel.FK__SanPham__MaDM__778AC167" FromRole="SanPham" ToRole="DanhMuc" />
-          <NavigationProperty Name="DonHangs" Relationship="DBShopeeFoodModel.FK__DonHang__MaSP__7E37BEF6" FromRole="SanPham" ToRole="DonHang" />
-          <NavigationProperty Name="DonHangChiTiets" Relationship="DBShopeeFoodModel.FK__DonHangChi__MaSP__797309D9" FromRole="SanPham" ToRole="DonHangChiTiet" />
-          <NavigationProperty Name="Shop" Relationship="DBShopeeFoodModel.FK__SanPham__MaShop__787EE5A0" FromRole="SanPham" ToRole="Shop" />
           <Property Name="MoTa" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="HinhSP" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="GioHangs" Relationship="DBShopeeFoodModel.FK_MaDT_order_item" FromRole="SanPham" ToRole="GioHang" />
+          <NavigationProperty Name="DanhMuc" Relationship="Self.FK__SanPham__MaDM__49C3F6B7" FromRole="SanPham" ToRole="DanhMuc" />
+          <NavigationProperty Name="DonHangs" Relationship="Self.FK__DonHang__MaSP__4CA06362" FromRole="SanPham" ToRole="DonHang" />
+          <NavigationProperty Name="GioHangs" Relationship="Self.FK_MaDT_order_item" FromRole="SanPham" ToRole="GioHang" />
+          <NavigationProperty Name="Shop" Relationship="Self.FK__SanPham__MaShop__48CFD27E" FromRole="SanPham" ToRole="Shop" />
+          <NavigationProperty Name="DonHangChiTiets" Relationship="DBShopeeFoodModel.FK__DonHangChi__MaSP__5070F446" FromRole="SanPham" ToRole="DonHangChiTiet" />
         </EntityType>
         <EntityType Name="Shop">
           <Key>
@@ -677,14 +588,14 @@
           <Property Name="HinhMenu" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="DiaChiShop" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="MoTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="SanPhams" Relationship="DBShopeeFoodModel.FK__SanPham__MaShop__787EE5A0" FromRole="Shop" ToRole="SanPham" />
-          <NavigationProperty Name="User" Relationship="DBShopeeFoodModel.FK__Shop__MaTK__74AE54BC" FromRole="Shop" ToRole="User" />
+          <NavigationProperty Name="SanPhams" Relationship="Self.FK__SanPham__MaShop__48CFD27E" FromRole="Shop" ToRole="SanPham" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Shop__MaTK__45F365D3" FromRole="Shop" ToRole="Users" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
@@ -698,35 +609,38 @@
           <Property Name="STK" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="PTTT" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="MaTK" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="DBShopeeFoodModel.FK_Orders_Customers" FromRole="ThanhToan" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Orders_Customers" FromRole="ThanhToan" ToRole="Users" />
+          <Property Name="MaDH" Type="Int32" />
+          <NavigationProperty Name="DonHang" Relationship="DBShopeeFoodModel.ThanhToan_DonHang_MaDH_fk" FromRole="ThanhToan" ToRole="DonHang" />
+          <Property Name="NgayThanhToan" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="MaTK" />
           </Key>
           <Property Name="MaTK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TaiKhoan" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="MatKhau" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="HoTen" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TaiKhoan" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MatKhau" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HoTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SDT" Type="Int32" />
           <Property Name="Email" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="ChucVu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CCCD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="KhachHangs" Relationship="DBShopeeFoodModel.FK__KhachHang__MaTK__7B5B524B" FromRole="User" ToRole="KhachHang" />
-          <NavigationProperty Name="NhanViens" Relationship="DBShopeeFoodModel.FK__NhanVien__MaTK__7A672E12" FromRole="User" ToRole="NhanVien" />
-          <NavigationProperty Name="PhanQuyens" Relationship="DBShopeeFoodModel.FK_PhanQuyen_Users" FromRole="User" ToRole="PhanQuyen" />
-          <NavigationProperty Name="Shops" Relationship="DBShopeeFoodModel.FK__Shop__MaTK__74AE54BC" FromRole="User" ToRole="Shop" />
-          <NavigationProperty Name="ThanhToans" Relationship="DBShopeeFoodModel.FK_Orders_Customers" FromRole="User" ToRole="ThanhToan" />
-          <NavigationProperty Name="GioHangs" Relationship="DBShopeeFoodModel.FK_id_user_cart" FromRole="User" ToRole="GioHang" />
-          <NavigationProperty Name="DonHangs" Relationship="DBShopeeFoodModel.FK__DonHang__MaTK__7D439ABD" FromRole="User" ToRole="DonHang" />
+          <NavigationProperty Name="DonHangs" Relationship="Self.FK__DonHang__MaTK__7D439ABD" FromRole="Users" ToRole="DonHang" />
+          <NavigationProperty Name="GioHangs" Relationship="Self.FK_id_user_cart" FromRole="Users" ToRole="GioHang" />
+          <NavigationProperty Name="KhachHangs" Relationship="Self.FK__KhachHang__MaTK__3C69FB99" FromRole="Users" ToRole="KhachHang" />
+          <NavigationProperty Name="NhanViens" Relationship="Self.FK__NhanVien__MaTK__3F466844" FromRole="Users" ToRole="NhanVien" />
+          <NavigationProperty Name="PhanQuyens" Relationship="Self.FK_PhanQuyen_Users" FromRole="Users" ToRole="PhanQuyen" />
+          <NavigationProperty Name="Shops" Relationship="Self.FK__Shop__MaTK__45F365D3" FromRole="Users" ToRole="Shop" />
+          <NavigationProperty Name="ThanhToans" Relationship="Self.FK_Orders_Customers" FromRole="Users" ToRole="ThanhToan" />
         </EntityType>
         <Association Name="FK_PhanQuyen_ChucVu">
-          <End Type="DBShopeeFoodModel.ChucVu" Role="ChucVu" Multiplicity="1">
+          <End Role="ChucVu" Type="Self.ChucVu" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="DBShopeeFoodModel.PhanQuyen" Role="PhanQuyen" Multiplicity="*" />
+          <End Role="PhanQuyen" Type="Self.PhanQuyen" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ChucVu">
               <PropertyRef Name="MaCV" />
@@ -736,9 +650,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SanPham__MaDM__76969D2E">
-          <End Type="DBShopeeFoodModel.DanhMuc" Role="DanhMuc" Multiplicity="1" />
-          <End Type="DBShopeeFoodModel.SanPham" Role="SanPham" Multiplicity="*" />
+        <Association Name="FK__SanPham__MaDM__49C3F6B7">
+          <End Role="DanhMuc" Type="Self.DanhMuc" Multiplicity="1" />
+          <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DanhMuc">
               <PropertyRef Name="MaDM" />
@@ -748,33 +662,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SanPham__MaDM__778AC167">
-          <End Type="DBShopeeFoodModel.DanhMuc" Role="DanhMuc" Multiplicity="1" />
-          <End Type="DBShopeeFoodModel.SanPham" Role="SanPham" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DanhMuc">
-              <PropertyRef Name="MaDM" />
-            </Principal>
-            <Dependent Role="SanPham">
-              <PropertyRef Name="MaDM" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__DonHang__MaKH__7D439ABD">
-          <End Type="DBShopeeFoodModel.KhachHang" Role="KhachHang" Multiplicity="1" />
-          <End Type="DBShopeeFoodModel.DonHang" Role="DonHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KhachHang">
-              <PropertyRef Name="MaKhachHang" />
-            </Principal>
-            <Dependent Role="DonHang">
-              <PropertyRef Name="MaKH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__DonHang__MaSP__7E37BEF6">
-          <End Type="DBShopeeFoodModel.SanPham" Role="SanPham" Multiplicity="1" />
-          <End Type="DBShopeeFoodModel.DonHang" Role="DonHang" Multiplicity="*" />
+        <Association Name="FK__DonHang__MaSP__4CA06362">
+          <End Role="SanPham" Type="Self.SanPham" Multiplicity="1" />
+          <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SanPham">
               <PropertyRef Name="MaSP" />
@@ -784,9 +674,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__HoaDon__MaDH__7F2BE32F">
-          <End Type="DBShopeeFoodModel.DonHang" Role="DonHang" Multiplicity="1" />
-          <End Type="DBShopeeFoodModel.HoaDon" Role="HoaDon" Multiplicity="*" />
+        <Association Name="FK__DonHang__MaTK__7D439ABD">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="MaTK" />
+            </Principal>
+            <Dependent Role="DonHang">
+              <PropertyRef Name="MaTK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HoaDon__MaDH__59FA5E80">
+          <End Role="DonHang" Type="Self.DonHang" Multiplicity="1" />
+          <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DonHang">
               <PropertyRef Name="MaDH" />
@@ -796,7 +698,242 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DonHangChi__MaSP__797309D9">
+        <Association Name="FK_id_user_cart">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="GioHang" Type="Self.GioHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="MaTK" />
+            </Principal>
+            <Dependent Role="GioHang">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaDT_order_item">
+          <End Role="SanPham" Type="Self.SanPham" Multiplicity="0..1" />
+          <End Role="GioHang" Type="Self.GioHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SanPham">
+              <PropertyRef Name="MaSP" />
+            </Principal>
+            <Dependent Role="GioHang">
+              <PropertyRef Name="MaSP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HoaDon__MaKH__59063A47">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="1" />
+          <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="MaKhachHang" />
+            </Principal>
+            <Dependent Role="HoaDon">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HoaDon__MaNV__5812160E">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="1" />
+          <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="HoaDon">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__KhachHang__MaTK__3C69FB99">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="MaTK" />
+            </Principal>
+            <Dependent Role="KhachHang">
+              <PropertyRef Name="MaTK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NhanVien__MaTK__3F466844">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="MaTK" />
+            </Principal>
+            <Dependent Role="NhanVien">
+              <PropertyRef Name="MaTK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PhanQuyen_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PhanQuyen" Type="Self.PhanQuyen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="MaTK" />
+            </Principal>
+            <Dependent Role="PhanQuyen">
+              <PropertyRef Name="MaTK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SanPham__MaShop__48CFD27E">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+          <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="MaShop" />
+            </Principal>
+            <Dependent Role="SanPham">
+              <PropertyRef Name="MaShop" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Shop__MaTK__45F365D3">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Shop" Type="Self.Shop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="MaTK" />
+            </Principal>
+            <Dependent Role="Shop">
+              <PropertyRef Name="MaTK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Customers">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="ThanhToan" Type="Self.ThanhToan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="MaTK" />
+            </Principal>
+            <Dependent Role="ThanhToan">
+              <PropertyRef Name="MaTK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBShopeeFoodEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ChucVus" EntityType="Self.ChucVu" />
+          <EntitySet Name="DanhMucs" EntityType="Self.DanhMuc" />
+          <EntitySet Name="DonHangs" EntityType="Self.DonHang" />
+          <EntitySet Name="GioHangs" EntityType="Self.GioHang" />
+          <EntitySet Name="HoaDons" EntityType="Self.HoaDon" />
+          <EntitySet Name="KhachHangs" EntityType="Self.KhachHang" />
+          <EntitySet Name="NhanViens" EntityType="Self.NhanVien" />
+          <EntitySet Name="PhanQuyens" EntityType="Self.PhanQuyen" />
+          <EntitySet Name="SanPhams" EntityType="Self.SanPham" />
+          <EntitySet Name="Shops" EntityType="Self.Shop" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="ThanhToans" EntityType="Self.ThanhToan" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_PhanQuyen_ChucVu" Association="Self.FK_PhanQuyen_ChucVu">
+            <End Role="ChucVu" EntitySet="ChucVus" />
+            <End Role="PhanQuyen" EntitySet="PhanQuyens" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SanPham__MaDM__49C3F6B7" Association="Self.FK__SanPham__MaDM__49C3F6B7">
+            <End Role="DanhMuc" EntitySet="DanhMucs" />
+            <End Role="SanPham" EntitySet="SanPhams" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DonHang__MaSP__4CA06362" Association="Self.FK__DonHang__MaSP__4CA06362">
+            <End Role="SanPham" EntitySet="SanPhams" />
+            <End Role="DonHang" EntitySet="DonHangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DonHang__MaTK__7D439ABD" Association="Self.FK__DonHang__MaTK__7D439ABD">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="DonHang" EntitySet="DonHangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HoaDon__MaDH__59FA5E80" Association="Self.FK__HoaDon__MaDH__59FA5E80">
+            <End Role="DonHang" EntitySet="DonHangs" />
+            <End Role="HoaDon" EntitySet="HoaDons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_id_user_cart" Association="Self.FK_id_user_cart">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="GioHang" EntitySet="GioHangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaDT_order_item" Association="Self.FK_MaDT_order_item">
+            <End Role="SanPham" EntitySet="SanPhams" />
+            <End Role="GioHang" EntitySet="GioHangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HoaDon__MaKH__59063A47" Association="Self.FK__HoaDon__MaKH__59063A47">
+            <End Role="KhachHang" EntitySet="KhachHangs" />
+            <End Role="HoaDon" EntitySet="HoaDons" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HoaDon__MaNV__5812160E" Association="Self.FK__HoaDon__MaNV__5812160E">
+            <End Role="NhanVien" EntitySet="NhanViens" />
+            <End Role="HoaDon" EntitySet="HoaDons" />
+          </AssociationSet>
+          <AssociationSet Name="FK__KhachHang__MaTK__3C69FB99" Association="Self.FK__KhachHang__MaTK__3C69FB99">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="KhachHang" EntitySet="KhachHangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NhanVien__MaTK__3F466844" Association="Self.FK__NhanVien__MaTK__3F466844">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="NhanVien" EntitySet="NhanViens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PhanQuyen_Users" Association="Self.FK_PhanQuyen_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PhanQuyen" EntitySet="PhanQuyens" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SanPham__MaShop__48CFD27E" Association="Self.FK__SanPham__MaShop__48CFD27E">
+            <End Role="Shop" EntitySet="Shops" />
+            <End Role="SanPham" EntitySet="SanPhams" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Shop__MaTK__45F365D3" Association="Self.FK__Shop__MaTK__45F365D3">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Shop" EntitySet="Shops" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Customers" Association="Self.FK_Orders_Customers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ThanhToan" EntitySet="ThanhToans" />
+          </AssociationSet>
+          <EntitySet Name="DonHangChiTiets" EntityType="DBShopeeFoodModel.DonHangChiTiet" />
+          <AssociationSet Name="FK__DonHangChi__MaHD__5165187F" Association="DBShopeeFoodModel.FK__DonHangChi__MaHD__5165187F">
+            <End Role="DonHang" EntitySet="DonHangs" />
+            <End Role="DonHangChiTiet" EntitySet="DonHangChiTiets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DonHangChi__MaSP__5070F446" Association="DBShopeeFoodModel.FK__DonHangChi__MaSP__5070F446">
+            <End Role="SanPham" EntitySet="SanPhams" />
+            <End Role="DonHangChiTiet" EntitySet="DonHangChiTiets" />
+          </AssociationSet>
+          <AssociationSet Name="ThanhToan_DonHang_MaDH_fk" Association="DBShopeeFoodModel.ThanhToan_DonHang_MaDH_fk">
+            <End Role="DonHang" EntitySet="DonHangs" />
+            <End Role="ThanhToan" EntitySet="ThanhToans" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="DonHangChiTiet">
+          <Key>
+            <PropertyRef Name="MaCTDH" />
+          </Key>
+          <Property Name="MaSP" Type="Int32" Nullable="false" />
+          <Property Name="MaCTDH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Soluong" Type="Int32" />
+          <Property Name="Gia" Type="Int32" />
+          <Property Name="Tongtien" Type="Int32" />
+          <Property Name="MaDH" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DonHang" Relationship="DBShopeeFoodModel.FK__DonHangChi__MaHD__5165187F" FromRole="DonHangChiTiet" ToRole="DonHang" />
+          <NavigationProperty Name="SanPham" Relationship="DBShopeeFoodModel.FK__DonHangChi__MaSP__5070F446" FromRole="DonHangChiTiet" ToRole="SanPham" />
+        </EntityType>
+        <Association Name="FK__DonHangChi__MaHD__5165187F">
+          <End Type="DBShopeeFoodModel.DonHang" Role="DonHang" Multiplicity="1" />
+          <End Type="DBShopeeFoodModel.DonHangChiTiet" Role="DonHangChiTiet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonHang">
+              <PropertyRef Name="MaDH" />
+            </Principal>
+            <Dependent Role="DonHangChiTiet">
+              <PropertyRef Name="MaDH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DonHangChi__MaSP__5070F446">
           <End Type="DBShopeeFoodModel.SanPham" Role="SanPham" Multiplicity="1" />
           <End Type="DBShopeeFoodModel.DonHangChiTiet" Role="DonHangChiTiet" Multiplicity="*" />
           <ReferentialConstraint>
@@ -808,152 +945,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__HoaDon__MaKH__00200768">
-          <End Type="DBShopeeFoodModel.KhachHang" Role="KhachHang" Multiplicity="1" />
-          <End Type="DBShopeeFoodModel.HoaDon" Role="HoaDon" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KhachHang">
-              <PropertyRef Name="MaKhachHang" />
-            </Principal>
-            <Dependent Role="HoaDon">
-              <PropertyRef Name="MaKH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__HoaDon__MaNV__01142BA1">
-          <End Type="DBShopeeFoodModel.NhanVien" Role="NhanVien" Multiplicity="1" />
-          <End Type="DBShopeeFoodModel.HoaDon" Role="HoaDon" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NhanVien">
-              <PropertyRef Name="MaNV" />
-            </Principal>
-            <Dependent Role="HoaDon">
-              <PropertyRef Name="MaNV" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__KhachHang__MaTK__7B5B524B">
-          <End Type="DBShopeeFoodModel.User" Role="User" Multiplicity="1" />
-          <End Type="DBShopeeFoodModel.KhachHang" Role="KhachHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="MaTK" />
-            </Principal>
-            <Dependent Role="KhachHang">
-              <PropertyRef Name="MaTK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__NhanVien__MaTK__7A672E12">
-          <End Type="DBShopeeFoodModel.User" Role="User" Multiplicity="1" />
-          <End Type="DBShopeeFoodModel.NhanVien" Role="NhanVien" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="MaTK" />
-            </Principal>
-            <Dependent Role="NhanVien">
-              <PropertyRef Name="MaTK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PhanQuyen_Users">
-          <End Type="DBShopeeFoodModel.User" Role="User" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DBShopeeFoodModel.PhanQuyen" Role="PhanQuyen" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="MaTK" />
-            </Principal>
-            <Dependent Role="PhanQuyen">
-              <PropertyRef Name="MaTK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__SanPham__MaShop__787EE5A0">
-          <End Type="DBShopeeFoodModel.Shop" Role="Shop" Multiplicity="1" />
-          <End Type="DBShopeeFoodModel.SanPham" Role="SanPham" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Shop">
-              <PropertyRef Name="MaShop" />
-            </Principal>
-            <Dependent Role="SanPham">
-              <PropertyRef Name="MaShop" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Shop__MaTK__74AE54BC">
-          <End Type="DBShopeeFoodModel.User" Role="User" Multiplicity="1" />
-          <End Type="DBShopeeFoodModel.Shop" Role="Shop" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="MaTK" />
-            </Principal>
-            <Dependent Role="Shop">
-              <PropertyRef Name="MaTK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Orders_Customers">
-          <End Type="DBShopeeFoodModel.User" Role="User" Multiplicity="0..1" />
+        <Association Name="ThanhToan_DonHang_MaDH_fk">
+          <End Type="DBShopeeFoodModel.DonHang" Role="DonHang" Multiplicity="0..1" />
           <End Type="DBShopeeFoodModel.ThanhToan" Role="ThanhToan" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="MaTK" />
+            <Principal Role="DonHang">
+              <PropertyRef Name="MaDH" />
             </Principal>
             <Dependent Role="ThanhToan">
-              <PropertyRef Name="MaTK" />
+              <PropertyRef Name="MaDH" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="GioHang">
-          <Key>
-            <PropertyRef Name="id_GH" />
-          </Key>
-          <Property Name="id_GH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_user" Type="Int32" />
-          <Property Name="MaSP" Type="Int32" />
-          <Property Name="quantity" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="DBShopeeFoodModel.FK_id_user_cart" FromRole="GioHang" ToRole="User" />
-          <NavigationProperty Name="SanPham" Relationship="DBShopeeFoodModel.FK_MaDT_order_item" FromRole="GioHang" ToRole="SanPham" />
-        </EntityType>
-        <Association Name="FK_id_user_cart">
-          <End Type="DBShopeeFoodModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="DBShopeeFoodModel.GioHang" Role="GioHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="MaTK" />
-            </Principal>
-            <Dependent Role="GioHang">
-              <PropertyRef Name="id_user" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MaDT_order_item">
-          <End Type="DBShopeeFoodModel.SanPham" Role="SanPham" Multiplicity="0..1" />
-          <End Type="DBShopeeFoodModel.GioHang" Role="GioHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SanPham">
-              <PropertyRef Name="MaSP" />
-            </Principal>
-            <Dependent Role="GioHang">
-              <PropertyRef Name="MaSP" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__DonHang__MaTK__7D439ABD">
-          <End Type="DBShopeeFoodModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="DBShopeeFoodModel.DonHang" Role="DonHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="MaTK" />
-            </Principal>
-            <Dependent Role="DonHang">
-              <PropertyRef Name="MaTK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        </Schema>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -962,156 +966,29 @@
           <EntitySetMapping Name="ChucVus">
             <EntityTypeMapping TypeName="DBShopeeFoodModel.ChucVu">
               <MappingFragment StoreEntitySet="ChucVu">
-                <ScalarProperty Name="TenCV" ColumnName="TenCV" />
                 <ScalarProperty Name="MaCV" ColumnName="MaCV" />
+                <ScalarProperty Name="TenCV" ColumnName="TenCV" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DanhMucs">
             <EntityTypeMapping TypeName="DBShopeeFoodModel.DanhMuc">
               <MappingFragment StoreEntitySet="DanhMuc">
-                <ScalarProperty Name="TenDanhMuc" ColumnName="TenDanhMuc" />
                 <ScalarProperty Name="MaDM" ColumnName="MaDM" />
+                <ScalarProperty Name="TenDanhMuc" ColumnName="TenDanhMuc" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DonHangs">
             <EntityTypeMapping TypeName="DBShopeeFoodModel.DonHang">
               <MappingFragment StoreEntitySet="DonHang">
-                <ScalarProperty Name="MaTK" ColumnName="MaTK" />
-                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
-                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
-                <ScalarProperty Name="MaSP" ColumnName="MaSP" />
-                <ScalarProperty Name="NgayGiao" ColumnName="NgayGiao" />
-                <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
+                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
                 <ScalarProperty Name="DiaDiemGiaoHang" ColumnName="DiaDiemGiaoHang" />
-                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DonHangChiTiets">
-            <EntityTypeMapping TypeName="DBShopeeFoodModel.DonHangChiTiet">
-              <MappingFragment StoreEntitySet="DonHangChiTiet">
-                <ScalarProperty Name="Tongtien" ColumnName="Tongtien" />
-                <ScalarProperty Name="Gia" ColumnName="Gia" />
-                <ScalarProperty Name="Soluong" ColumnName="Soluong" />
-                <ScalarProperty Name="MaCTDH" ColumnName="MaCTDH" />
+                <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
+                <ScalarProperty Name="NgayGiao" ColumnName="NgayGiao" />
                 <ScalarProperty Name="MaSP" ColumnName="MaSP" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="HoaDons">
-            <EntityTypeMapping TypeName="DBShopeeFoodModel.HoaDon">
-              <MappingFragment StoreEntitySet="HoaDon">
-                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
-                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
-                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
-                <ScalarProperty Name="NgayTaoHD" ColumnName="NgayTaoHD" />
-                <ScalarProperty Name="MaHD" ColumnName="MaHD" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="KhachHangs">
-            <EntityTypeMapping TypeName="DBShopeeFoodModel.KhachHang">
-              <MappingFragment StoreEntitySet="KhachHang">
-                <ScalarProperty Name="LoaiThanhVien" ColumnName="LoaiThanhVien" />
-                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
-                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
-                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
-                <ScalarProperty Name="TenKhachHang" ColumnName="TenKhachHang" />
-                <ScalarProperty Name="MaTK" ColumnName="MaTK" />
-                <ScalarProperty Name="MaKhachHang" ColumnName="MaKhachHang" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="NhanViens">
-            <EntityTypeMapping TypeName="DBShopeeFoodModel.NhanVien">
-              <MappingFragment StoreEntitySet="NhanVien">
-                <ScalarProperty Name="DanhGia" ColumnName="DanhGia" />
-                <ScalarProperty Name="MaTK" ColumnName="MaTK" />
-                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PhanQuyens">
-            <EntityTypeMapping TypeName="DBShopeeFoodModel.PhanQuyen">
-              <MappingFragment StoreEntitySet="PhanQuyen">
-                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
-                <ScalarProperty Name="MaCV" ColumnName="MaCV" />
-                <ScalarProperty Name="MaTK" ColumnName="MaTK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SanPhams">
-            <EntityTypeMapping TypeName="DBShopeeFoodModel.SanPham">
-              <MappingFragment StoreEntitySet="SanPham">
-                <ScalarProperty Name="HinhSP" ColumnName="HinhSP" />
-                <ScalarProperty Name="MoTa" ColumnName="MoTa" />
-                <ScalarProperty Name="Soluongton" ColumnName="Soluongton" />
-                <ScalarProperty Name="Soluongdaban" ColumnName="Soluongdaban" />
-                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
-                <ScalarProperty Name="Loai" ColumnName="Loai" />
-                <ScalarProperty Name="TenSP" ColumnName="TenSP" />
-                <ScalarProperty Name="MaDM" ColumnName="MaDM" />
-                <ScalarProperty Name="MaShop" ColumnName="MaShop" />
-                <ScalarProperty Name="MaSP" ColumnName="MaSP" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Shops">
-            <EntityTypeMapping TypeName="DBShopeeFoodModel.Shop">
-              <MappingFragment StoreEntitySet="Shop">
-                <ScalarProperty Name="MoTa" ColumnName="MoTa" />
-                <ScalarProperty Name="DiaChiShop" ColumnName="DiaChiShop" />
-                <ScalarProperty Name="HinhMenu" ColumnName="HinhMenu" />
-                <ScalarProperty Name="MaTK" ColumnName="MaTK" />
-                <ScalarProperty Name="AnhThucTe" ColumnName="AnhThucTe" />
-                <ScalarProperty Name="AnhDaiDien" ColumnName="AnhDaiDien" />
-                <ScalarProperty Name="AnhBia" ColumnName="AnhBia" />
-                <ScalarProperty Name="DoanhThu" ColumnName="DoanhThu" />
-                <ScalarProperty Name="SoLuongSanPham" ColumnName="SoLuongSanPham" />
-                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
-                <ScalarProperty Name="DanhGia" ColumnName="DanhGia" />
-                <ScalarProperty Name="TenShop" ColumnName="TenShop" />
-                <ScalarProperty Name="MaShop" ColumnName="MaShop" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="DBShopeeFoodModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ThanhToans">
-            <EntityTypeMapping TypeName="DBShopeeFoodModel.ThanhToan">
-              <MappingFragment StoreEntitySet="ThanhToan">
-                <ScalarProperty Name="MaTK" ColumnName="MaTK" />
-                <ScalarProperty Name="PTTT" ColumnName="PTTT" />
-                <ScalarProperty Name="STK" ColumnName="STK" />
-                <ScalarProperty Name="MaTT" ColumnName="MaTT" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="DBShopeeFoodModel.User">
-              <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="CCCD" ColumnName="CCCD" />
-                <ScalarProperty Name="ChucVu" ColumnName="ChucVu" />
-                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="SDT" ColumnName="SDT" />
-                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
-                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
-                <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
-                <ScalarProperty Name="TaiKhoan" ColumnName="TaiKhoan" />
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
                 <ScalarProperty Name="MaTK" ColumnName="MaTK" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1119,10 +996,139 @@
           <EntitySetMapping Name="GioHangs">
             <EntityTypeMapping TypeName="DBShopeeFoodModel.GioHang">
               <MappingFragment StoreEntitySet="GioHang">
-                <ScalarProperty Name="quantity" ColumnName="quantity" />
-                <ScalarProperty Name="MaSP" ColumnName="MaSP" />
-                <ScalarProperty Name="id_user" ColumnName="id_user" />
                 <ScalarProperty Name="id_GH" ColumnName="id_GH" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HoaDons">
+            <EntityTypeMapping TypeName="DBShopeeFoodModel.HoaDon">
+              <MappingFragment StoreEntitySet="HoaDon">
+                <ScalarProperty Name="MaHD" ColumnName="MaHD" />
+                <ScalarProperty Name="NgayTaoHD" ColumnName="NgayTaoHD" />
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KhachHangs">
+            <EntityTypeMapping TypeName="DBShopeeFoodModel.KhachHang">
+              <MappingFragment StoreEntitySet="KhachHang">
+                <ScalarProperty Name="MaKhachHang" ColumnName="MaKhachHang" />
+                <ScalarProperty Name="MaTK" ColumnName="MaTK" />
+                <ScalarProperty Name="TenKhachHang" ColumnName="TenKhachHang" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="LoaiThanhVien" ColumnName="LoaiThanhVien" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NhanViens">
+            <EntityTypeMapping TypeName="DBShopeeFoodModel.NhanVien">
+              <MappingFragment StoreEntitySet="NhanVien">
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+                <ScalarProperty Name="MaTK" ColumnName="MaTK" />
+                <ScalarProperty Name="DanhGia" ColumnName="DanhGia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PhanQuyens">
+            <EntityTypeMapping TypeName="DBShopeeFoodModel.PhanQuyen">
+              <MappingFragment StoreEntitySet="PhanQuyen">
+                <ScalarProperty Name="MaTK" ColumnName="MaTK" />
+                <ScalarProperty Name="MaCV" ColumnName="MaCV" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SanPhams">
+            <EntityTypeMapping TypeName="DBShopeeFoodModel.SanPham">
+              <MappingFragment StoreEntitySet="SanPham">
+                <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+                <ScalarProperty Name="MaShop" ColumnName="MaShop" />
+                <ScalarProperty Name="MaDM" ColumnName="MaDM" />
+                <ScalarProperty Name="TenSP" ColumnName="TenSP" />
+                <ScalarProperty Name="Loai" ColumnName="Loai" />
+                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+                <ScalarProperty Name="Soluongdaban" ColumnName="Soluongdaban" />
+                <ScalarProperty Name="Soluongton" ColumnName="Soluongton" />
+                <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+                <ScalarProperty Name="HinhSP" ColumnName="HinhSP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shops">
+            <EntityTypeMapping TypeName="DBShopeeFoodModel.Shop">
+              <MappingFragment StoreEntitySet="Shop">
+                <ScalarProperty Name="MaShop" ColumnName="MaShop" />
+                <ScalarProperty Name="TenShop" ColumnName="TenShop" />
+                <ScalarProperty Name="DanhGia" ColumnName="DanhGia" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+                <ScalarProperty Name="SoLuongSanPham" ColumnName="SoLuongSanPham" />
+                <ScalarProperty Name="DoanhThu" ColumnName="DoanhThu" />
+                <ScalarProperty Name="AnhBia" ColumnName="AnhBia" />
+                <ScalarProperty Name="AnhDaiDien" ColumnName="AnhDaiDien" />
+                <ScalarProperty Name="AnhThucTe" ColumnName="AnhThucTe" />
+                <ScalarProperty Name="MaTK" ColumnName="MaTK" />
+                <ScalarProperty Name="HinhMenu" ColumnName="HinhMenu" />
+                <ScalarProperty Name="DiaChiShop" ColumnName="DiaChiShop" />
+                <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DBShopeeFoodModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ThanhToans">
+            <EntityTypeMapping TypeName="DBShopeeFoodModel.ThanhToan">
+              <MappingFragment StoreEntitySet="ThanhToan">
+                <ScalarProperty Name="NgayThanhToan" ColumnName="NgayThanhToan" />
+                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
+                <ScalarProperty Name="MaTT" ColumnName="MaTT" />
+                <ScalarProperty Name="STK" ColumnName="STK" />
+                <ScalarProperty Name="PTTT" ColumnName="PTTT" />
+                <ScalarProperty Name="MaTK" ColumnName="MaTK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DBShopeeFoodModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="MaTK" ColumnName="MaTK" />
+                <ScalarProperty Name="TaiKhoan" ColumnName="TaiKhoan" />
+                <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="ChucVu" ColumnName="ChucVu" />
+                <ScalarProperty Name="CCCD" ColumnName="CCCD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DonHangChiTiets">
+            <EntityTypeMapping TypeName="DBShopeeFoodModel.DonHangChiTiet">
+              <MappingFragment StoreEntitySet="DonHangChiTiet">
+                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
+                <ScalarProperty Name="Tongtien" ColumnName="Tongtien" />
+                <ScalarProperty Name="Gia" ColumnName="Gia" />
+                <ScalarProperty Name="Soluong" ColumnName="Soluong" />
+                <ScalarProperty Name="MaCTDH" ColumnName="MaCTDH" />
+                <ScalarProperty Name="MaSP" ColumnName="MaSP" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1140,7 +1146,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

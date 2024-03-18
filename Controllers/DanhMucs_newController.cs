@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Shopee_Food.Models;
+using Shopee_Food.Pattern.Cate;
 
 namespace Shopee_Food.Controllers
 {
@@ -14,10 +15,19 @@ namespace Shopee_Food.Controllers
     {
         private DBShopeeFoodEntities db = new DBShopeeFoodEntities();
 
+        private IDanhMucRepository danhMucRepository;
+
+        public DanhMucs_newController()
+        {
+            this.danhMucRepository = new CateRepository(new DBShopeeFoodEntities());
+        }
+
         // GET: DanhMucs_new
         public ActionResult Index()
         {
-            return View(db.DanhMucs.ToList());
+            var danhMucs = from s in danhMucRepository.GetDanhMuc()
+                           select s;
+            return View(danhMucs);
         }
 
         // GET: DanhMucs_new/Details/5
@@ -27,7 +37,7 @@ namespace Shopee_Food.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DanhMuc danhMuc = db.DanhMucs.Find(id);
+            DanhMuc danhMuc = danhMucRepository.GetDanhMucByID(id);
             if (danhMuc == null)
             {
                 return HttpNotFound();
@@ -42,7 +52,7 @@ namespace Shopee_Food.Controllers
         }
 
         // POST: DanhMucs_new/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -74,7 +84,7 @@ namespace Shopee_Food.Controllers
         }
 
         // POST: DanhMucs_new/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]

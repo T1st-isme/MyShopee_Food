@@ -23,7 +23,7 @@ namespace Shopee_Food.Controllers
         // GET: SanPhams_new
         public ActionResult Index()
         {
-            var sanPhams = db.SanPhams.Include(s => s.DanhMuc).Include(s => s.DanhMuc1).Include(s => s.Shop);
+            var sanPhams = db.SanPhams.Include(s => s.DanhMuc).Include(s => s.DanhMuc).Include(s => s.Shop);
             return View(sanPhams.ToList());
         }
 

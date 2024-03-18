@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\Visual Studio Project\ShopeeFood_new_3\Models\DBShopeeFood.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\Users\T1st\Source\Repos\T1st-isme\MyShopee_Food\Models\DBShopeeFood.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

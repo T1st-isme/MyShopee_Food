@@ -18,7 +18,10 @@ namespace Shopee_Food.Models
         public string STK { get; set; }
         public string PTTT { get; set; }
         public Nullable<int> MaTK { get; set; }
+        public Nullable<int> MaDH { get; set; }
+        public Nullable<System.DateTime> NgayThanhToan { get; set; }
     
         public virtual User User { get; set; }
+        public virtual DonHang DonHang { get; set; }
     }
 }
