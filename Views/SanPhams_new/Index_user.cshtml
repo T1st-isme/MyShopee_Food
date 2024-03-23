@@ -187,6 +187,17 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">
     <div class="row">
+        <div style="margin-right:50px;margin-top:20px;margin-left:20px;">
+            @using (Html.BeginForm("Index_user", "SanPhams_new", FormMethod.Get))
+            {
+                <p>
+                    Giá từ: @Html.TextBox("minPrice")
+                    Giá đến: @Html.TextBox("maxPrice")
+                    @*Loại sản phẩm: @Html.DropDownList("category", ViewBag.MaLoai as SelectList, "Chọn loại")*@
+                    <input type="submit" value="Tìm kiếm" class="btn btn-primary" />
+                </p>
+            }
+        </div>
         @foreach (var item in Model)
         {
             <div class="col-md-3">

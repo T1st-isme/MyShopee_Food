@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using PayPal.Api;
 using Shopee_Food.Models;
+using Shopee_Food.Pattern.ThanhToanStrategy;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -15,6 +16,14 @@ namespace Shopee_Food.Controllers
     public class CartController : Controller
     {
         private DBShopeeFoodEntities db = new DBShopeeFoodEntities();
+        private Context _context;
+
+        public CartController()
+        {
+            Func<double> tinhTongTien = TinhTongTien;
+            Func<double> tinhTongTienvnd = TinhTongTienVND;
+            _context = new Context(new CODChoice(tinhTongTien));
+        }
 
         // GET: Cart
         public ActionResult ShowCart()
@@ -179,6 +188,17 @@ namespace Shopee_Food.Controllers
             return TongTien;
         }
 
+        private double TinhTongTienVND()
+        {
+            double TongTien = 0;
+            List<MatHangMua> gioHang = getCarts();
+            if (gioHang != null)
+            {
+                TongTien = gioHang.Sum(sp => sp.Total());
+            }
+            return Math.Round((TongTien) / 23000, 0);
+        }
+
         private int TinhTongSL()
         {
             int tongSL = 0;
@@ -231,7 +251,7 @@ namespace Shopee_Food.Controllers
 
             double totalAfterDiscount = totalPrice - (totalPrice * perCentDis / 100);
 
-            return (double)totalAfterDiscount;
+            return totalAfterDiscount;
         }
 
         public ActionResult PaymentWithPaypal(string DiaDiemGiaoHang)
@@ -446,25 +466,20 @@ namespace Shopee_Food.Controllers
         [HttpPost]
         public ActionResult PaymentChoice(string paymentMethod, string DiaDiemGiaoHang)
         {
-            switch (paymentMethod)
+            //Payment Strategy
+            if (paymentMethod == "paypal")
             {
-                case "paypal":
-                    // Handle PayPal payment
-                    return PaymentWithPaypal(DiaDiemGiaoHang);
-
-                case "cod":
-                    // Handle Cash on Delivery payment
-                    return PaymentWithCOD(DiaDiemGiaoHang);
-
-                default:
-                    // Handle default case or throw an error
-                    break;
+                _context.SetChoice(new PayPalChoice(() => TinhTongTien(), () => TinhTongTienVND()));
             }
+            else if (paymentMethod == "cod")
+            {
+                _context.SetChoice(new CODChoice(() => TinhTongTien()));
+            }
+            _context.Choice(HttpContext, DiaDiemGiaoHang, getCarts());
             return View("CheckOut_Success");
-            // Continue with the rest of the method
         }
 
-        private ActionResult PaymentWithCOD(string DiaDiemGiaoHang)
+        public ActionResult PaymentWithCOD(string DiaDiemGiaoHang)
         {
             string getUser = (string)Session["UserName"];
             User user = db.Users.FirstOrDefault(u => u.TaiKhoan == getUser);

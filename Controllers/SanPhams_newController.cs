@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
+using System.Xml.Linq;
 using Shopee_Food.Models;
+using PagedList;
+using Shopee_Food.Pattern.Product;
 
 namespace Shopee_Food.Controllers
 {
@@ -23,30 +28,60 @@ namespace Shopee_Food.Controllers
         // GET: SanPhams_new
         public ActionResult Index()
         {
-            var sanPhams = db.SanPhams.Include(s => s.DanhMuc).Include(s => s.DanhMuc).Include(s => s.Shop);
-            return View(sanPhams.ToList());
+            var productSingleton = ProductSingleton.Instance;
+            var products = productSingleton.GetProducts();
+            return View(products);
+            //var sanPhams = db.SanPhams.Include(s => s.DanhMuc).Include(s => s.DanhMuc).Include(s => s.Shop);
+            //return View(sanPhams.ToList());
         }
 
         //sản phẩm
-        public ActionResult Index_user(int? category, string SearchString, double min = double.MinValue, double max = double.MaxValue)
+        public ActionResult Index_user(string SearchString, decimal? minPrice, decimal? maxPrice, int? page)
         {
-            //Tạo Products và có tham chiếu đến category
-            var products = db.SanPhams.Include(p => p.DanhMuc);
-            //tìm kiếm chuỗi truy vẫn theo category
-            if (category == null)
+            var builder = new ProductBuilder(db.SanPhams);
+            // Tiếp tục logic của phương thức Index
+            IQueryable<SanPham> query = db.SanPhams.Include(s => s.Loai);
+            // Khai báo biến queryBuilder kiểu IProductQueryBuilder
+            IProductBuilder queryBuilder = builder;
+            // Apply filters
+            if (builder != null)
             {
-                products = db.SanPhams.OrderByDescending(x => x.TenSP);
+                //queryBuilder = queryBuilder.ByCategory(category);
+
+                if (minPrice.HasValue || maxPrice.HasValue)
+                {
+                    queryBuilder = queryBuilder.ByPrice(minPrice, maxPrice);
+                }
+
+                var resultList = queryBuilder.Build(); // Build() trả về List<SanPham> hoặc một collection
+                query = resultList.AsQueryable(); // Chuyển đổi List<SanPham> về IQueryable<SanPham>
             }
-            else
-            {
-                products = db.SanPhams.OrderByDescending(x => x.MaDM).Where(x => x.MaDM == category);
-            }
-            //tìm theo tên
-            if (!String.IsNullOrEmpty(SearchString))
-            {
-                products = products.Where(s => s.TenSP.ToLower().Contains(SearchString));
-            }
-            return View(products.ToList());
+            // Pagination
+            int pageSize = 8;
+            int pageNumber = (page ?? 1);
+            ViewBag.min = minPrice;
+            ViewBag.max = maxPrice;
+            //ViewBag.loai = category;
+            //ViewBag.MaLoai = new SelectList(db.DanhMucs, "MaDM", "TenDanhMuc");
+            return View(query.OrderBy(donhang => donhang.MaSP).ToPagedList(pageNumber, pageSize));
+
+            ////Tạo Products và có tham chiếu đến category
+            //var products = db.SanPhams.Include(p => p.DanhMuc);
+            ////tìm kiếm chuỗi truy vẫn theo category
+            //if (category == null)
+            //{
+            //    products = db.SanPhams.OrderByDescending(x => x.TenSP);
+            //}
+            //else
+            //{
+            //    products = db.SanPhams.OrderByDescending(x => x.MaDM).Where(x => x.MaDM == category);
+            //}
+            ////tìm theo tên
+            //if (!String.IsNullOrEmpty(SearchString))
+            //{
+            //    products = products.Where(s => s.TenSP.ToLower().Contains(SearchString));
+            //}
+            //return View(products.ToList());
         }
 
         // GET: SanPhams_new/Details/5
