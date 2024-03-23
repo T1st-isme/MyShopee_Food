@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Shopee_Food.Models;
+using Shopee_Food.Pattern.FlyWeight;
 
 namespace Shopee_Food.Areas.Admin.Controllers
 {
@@ -37,9 +38,19 @@ namespace Shopee_Food.Areas.Admin.Controllers
         }
 
         // GET: Admin/KhachHangs/Create
+        //Flyweight Pattern
+        private SelectListFlyWeight _selectListFlyweight;
+
+        public KhachHangsController()
+
+        {
+            _selectListFlyweight = new SelectListFlyWeight();
+        }
+
         public ActionResult Create()
         {
-            ViewBag.MaTK = new SelectList(db.Users, "MaTK", "TaiKhoan");
+            //ViewBag.MaTK = new SelectList(db.Users, "MaTK", "TaiKhoan");
+            ViewBag.MaTK = _selectListFlyweight.GetSelectList("User", db.Users, "MaTK", "TaiKhoan");
             return View();
         }
 
@@ -57,7 +68,8 @@ namespace Shopee_Food.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MaTK = new SelectList(db.Users, "MaTK", "TaiKhoan", khachHang.MaTK);
+            //ViewBag.MaTK = new SelectList(db.Users, "MaTK", "TaiKhoan", khachHang.MaTK);
+            ViewBag.MaTK = _selectListFlyweight.GetSelectList("User", db.Users, "MaTK", khachHang.MaTK.ToString());
             return View(khachHang);
         }
 
@@ -73,7 +85,7 @@ namespace Shopee_Food.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MaTK = new SelectList(db.Users, "MaTK", "TaiKhoan", khachHang.MaTK);
+            ViewBag.MaTK = _selectListFlyweight.GetSelectList("User", db.Users, "MaTK", "TaiKhoan");
             return View(khachHang);
         }
 
@@ -90,7 +102,7 @@ namespace Shopee_Food.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.MaTK = new SelectList(db.Users, "MaTK", "TaiKhoan", khachHang.MaTK);
+            ViewBag.MaTK = _selectListFlyweight.GetSelectList("User", db.Users, "MaTK", khachHang.MaTK.ToString());
             return View(khachHang);
         }
 

@@ -384,6 +384,7 @@
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Admin\map\mapNhanVien.cs" />
     <Compile Include="Areas\Admin\map\mapTaiKhoan.cs" />
+    <Compile Include="Areas\Admin\Pattern\FlyWeight\SelectListFlyWeight.cs" />
     <Compile Include="Areas\Admin\Pattern\ProductAD\IProductADRepository.cs" />
     <Compile Include="Areas\Admin\Pattern\ProductAD\ProductADRepository.cs" />
     <Compile Include="Areas\Admin\ShopVM.cs" />

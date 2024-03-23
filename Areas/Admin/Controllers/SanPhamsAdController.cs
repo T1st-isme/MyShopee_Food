@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Shopee_Food.Areas.Admin.Pattern.ProductAD;
 using Shopee_Food.Models;
+using Shopee_Food.Pattern.FlyWeight;
 
 namespace Shopee_Food.Areas.Admin.Controllers
 {
@@ -19,6 +20,7 @@ namespace Shopee_Food.Areas.Admin.Controllers
 
         public SanPhamsAdController()
         {
+            //Repository Pattern
             this._productADRepository = new ProductADRepository(new DBShopeeFoodEntities());
         }
 
@@ -46,6 +48,7 @@ namespace Shopee_Food.Areas.Admin.Controllers
         }
 
         // GET: Admin/SanPhamsAd/Create
+
         public ActionResult Create()
         {
             ViewBag.MaDM = new SelectList(db.DanhMucs, "MaDM", "TenDanhMuc");
