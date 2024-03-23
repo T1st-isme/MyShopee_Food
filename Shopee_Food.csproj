@@ -478,6 +478,7 @@
     <Compile Include="Pattern\Cate\Repository.cs" />
     <Compile Include="Pattern\Builder\ProductBuilder.cs" />
     <Compile Include="Pattern\Iterator\GetCartIterator.cs" />
+    <Compile Include="Pattern\Prototype\ProductPrototype.cs" />
     <Compile Include="Pattern\SingleTon\ProductSingleTon.cs" />
     <Compile Include="Pattern\ThanhToanStrategy\Context.cs" />
     <Compile Include="Pattern\ThanhToanStrategy\IChoice.cs" />

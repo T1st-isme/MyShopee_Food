@@ -2,7 +2,7 @@
 
 namespace Shopee_Food.Models
 {
-    public class MatHangMua
+    public class MatHangMua : ProductPrototype
     {
         private DBShopeeFoodEntities db = new DBShopeeFoodEntities();
         public int MaSP { get; set; }
@@ -14,6 +14,19 @@ namespace Shopee_Food.Models
         public double Total()
         {
             return Price * Amount;
+        }
+
+        // Phương thức tạo bản sao sâu của đối tượng MatHangMua
+        public override ProductPrototype Clone()
+        {
+            return new MatHangMua(MaSP)
+            {
+                MaSP = this.MaSP,
+                TenSp = this.TenSp,
+                img = this.img,
+                Price = this.Price,
+                Amount = this.Amount
+            };
         }
 
         public MatHangMua(int MaSP)

@@ -55,15 +55,29 @@ namespace Shopee_Food.Controllers
             if (getUser != null)
             {
                 var getListCart = db.GioHangs.Where(x => x.id_user == getUser.MaTK).ToList();
+
                 List<MatHangMua> listCart = new List<MatHangMua>();
+
+                // ---------------   code đã sữa iterator   -----------------------------
                 if (getListCart != null || getListCart.Count > 0)
                 {
-                    foreach (var i in getListCart)
+                    //foreach (var i in getListCart)
+                    //{
+                    //    MatHangMua sp = new MatHangMua(Convert.ToInt32(i.MaSP));
+                    //    sp.Amount = (int)(i.quantity);
+                    //    listCart.Add(sp);
+                    //}
+
+                    GetCartIterator iterator = new GetCartIterator(getListCart);
+                    var item = iterator.First();
+                    while (!iterator.IsDone)
                     {
-                        MatHangMua sp = new MatHangMua(Convert.ToInt32(i.MaSP));
-                        sp.Amount = (int)(i.quantity);
+                        MatHangMua sp = new MatHangMua(Convert.ToInt32(item.MaSP));
+                        sp.Amount = (int)(item.quantity);
                         listCart.Add(sp);
+                        item = iterator.Next();
                     }
+
                     Session["GioHang"] = listCart;
                     return listCart;
                 }
@@ -79,16 +93,15 @@ namespace Shopee_Food.Controllers
 
         public ActionResult AddProduct(int MaSP)
         {
-            User getUser = Session["UserName"] as User;
-
-            if (getUser != null)
+            var getuser = Session["user"] as User;
+            if (getuser != null)
             {
                 var checkProduct = db.GioHangs.Where(x => x.MaSP == MaSP).FirstOrDefault();
                 if (checkProduct == null)
                 {
                     var sp = new GioHang()
                     {
-                        id_user = getUser.MaTK,
+                        id_user = getuser.MaTK,
                         MaSP = MaSP,
                         quantity = 1,
                     };
@@ -105,9 +118,14 @@ namespace Shopee_Food.Controllers
 
             List<MatHangMua> gioHang = getCarts();
             MatHangMua sanPham = gioHang.FirstOrDefault(s => s.MaSP == MaSP);
+            // ----------------------- đã sửa theo prototype patttern -----------------------------
             if (sanPham == null)
             {
-                sanPham = new MatHangMua(MaSP);
+                //sanPham = new MatHangMua(MaSP);
+                //gioHang.Add(sanPham);
+
+                // Tạo một bản sao của món hàng bằng cách sử dụng phương thức Clone
+                sanPham = (MatHangMua)new MatHangMua(MaSP).Clone(); // Sử dụng phương thức Clone để tạo bản sao
                 gioHang.Add(sanPham);
             }
             else
