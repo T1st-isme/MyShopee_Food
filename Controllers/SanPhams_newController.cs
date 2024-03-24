@@ -51,7 +51,7 @@ namespace Shopee_Food.Controllers
             }
             // Apply filters
             if (builder != null)
-            { 
+            {
                 //queryBuilder = queryBuilder.ByCategory(category);
 
                 if (minPrice.HasValue || maxPrice.HasValue)
