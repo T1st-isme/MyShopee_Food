@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
+﻿using System.Net;
 using System.Web.Mvc;
 using Shopee_Food.Models;
-using Shopee_Food.Areas.Admin.map;
 using Shopee_Food.Areas.Admin.Pattern.UserFacade;
-using Shopee_Food.Areas.Admin.Pattern.ProductAD;
-using Shopee_Food.Areas.Admin.Pattern.Template_Method;
 
 namespace Shopee_Food.Areas.Admin.Controllers
 {

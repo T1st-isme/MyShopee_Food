@@ -44,8 +44,7 @@ namespace Shopee_Food.Areas.Admin.Controllers
             }
 
             // Sử dụng proxy để kiểm tra đăng nhập
-            var authenticatedUser = _userAuthService.Authenticate(taiKhoan, passWord);
-
+            var mapTK = new Areas.Admin.map.mapTaiKhoan().ChiTiet(username, password);
             if (authenticatedUser == null)
             {
                 ViewBag.Error = "Tài khoản hoặc mật khẩu không đúng";
