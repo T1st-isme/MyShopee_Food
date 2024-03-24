@@ -387,6 +387,14 @@
     <Compile Include="Areas\Admin\Pattern\FlyWeight\SelectListFlyWeight.cs" />
     <Compile Include="Areas\Admin\Pattern\ProductAD\IProductADRepository.cs" />
     <Compile Include="Areas\Admin\Pattern\ProductAD\ProductADRepository.cs" />
+    <Compile Include="Areas\Admin\Pattern\Proxy\UserAuthenticationService.cs" />
+    <Compile Include="Areas\Admin\Pattern\Template Method\ShopsControllerBase.cs" />
+    <Compile Include="Areas\Admin\Pattern\UserFacade\UserFacade.cs" />
+    <Compile Include="Areas\Admin\Pattern\UserFacade\UserSubControllerAdd.cs" />
+    <Compile Include="Areas\Admin\Pattern\UserFacade\UserSubControllerDelete.cs" />
+    <Compile Include="Areas\Admin\Pattern\UserFacade\UserSubControllerGetById.cs" />
+    <Compile Include="Areas\Admin\Pattern\UserFacade\UserSubControllerGetList.cs" />
+    <Compile Include="Areas\Admin\Pattern\UserFacade\UserSubControllerUpdate.cs" />
     <Compile Include="Areas\Admin\ShopVM.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />

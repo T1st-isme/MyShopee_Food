@@ -8,17 +8,26 @@ using System.Web;
 using System.Web.Mvc;
 using Shopee_Food.Models;
 using Shopee_Food.Areas.Admin.map;
+using Shopee_Food.Areas.Admin.Pattern.UserFacade;
+using Shopee_Food.Areas.Admin.Pattern.ProductAD;
+using Shopee_Food.Areas.Admin.Pattern.Template_Method;
 
 namespace Shopee_Food.Areas.Admin.Controllers
 {
     public class UsersController : Controller
     {
         private DBShopeeFoodEntities db = new DBShopeeFoodEntities();
+        private UserFacade _userFacade;
+
+        public UsersController()
+        {
+            this._userFacade = new UserFacade(new DBShopeeFoodEntities());
+        }
 
         // GET: Admin/Users
         public ActionResult Index()
         {
-            var users = db.Users.ToList();
+            var users = _userFacade.GetAllUser();
             return View(users);
         }
 
@@ -53,7 +62,7 @@ namespace Shopee_Food.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Users.Add(user);
+                _userFacade.AddUser(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -87,7 +96,7 @@ namespace Shopee_Food.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
+                _userFacade.UpdateUser(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -116,7 +125,7 @@ namespace Shopee_Food.Areas.Admin.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             User user = db.Users.Find(id);
-            db.Users.Remove(user);
+            _userFacade.DeleteUser(id);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

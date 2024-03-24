@@ -14,14 +14,14 @@ namespace Shopee_Food.Areas.Admin.Controllers
     {
         private DBShopeeFoodEntities db = new DBShopeeFoodEntities();
 
-        // GET: Admin/Shops
+        // GET: Admin/Shop
         public ActionResult Index()
         {
             var shops = db.Shops.Include(s => s.User);
             return View(shops.ToList());
         }
 
-        // GET: Admin/Shops/Details/5
+        // GET: Admin/Shop/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,19 +36,19 @@ namespace Shopee_Food.Areas.Admin.Controllers
             return View(shop);
         }
 
-        // GET: Admin/Shops/Create
+        // GET: Admin/Shop/Create
         public ActionResult Create()
         {
             ViewBag.MaTK = new SelectList(db.Users, "MaTK", "TaiKhoan");
             return View();
         }
 
-        // POST: Admin/Shops/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // POST: Admin/Shop/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaShop,TenShop,DanhGia,TinhTrang,SoLuongSanPham,DoanhThu,AnhBia,AnhDaiDien,AnhThucTe,MaTK,HinhMenu,DiaChiShop,MoTa")] Shop shop)
+        public ActionResult Create([Bind(Include = "MaShop,TenShop,DanhGia,TinhTrang,SoLuongSanPham,DoanhThu,AnhBia,AnhDaiDien,AnhThucTe,MaTK")] Shop shop)
         {
             if (ModelState.IsValid)
             {
@@ -61,7 +61,7 @@ namespace Shopee_Food.Areas.Admin.Controllers
             return View(shop);
         }
 
-        // GET: Admin/Shops/Edit/5
+        // GET: Admin/Shop/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -77,12 +77,12 @@ namespace Shopee_Food.Areas.Admin.Controllers
             return View(shop);
         }
 
-        // POST: Admin/Shops/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // POST: Admin/Shop/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaShop,TenShop,DanhGia,TinhTrang,SoLuongSanPham,DoanhThu,AnhBia,AnhDaiDien,AnhThucTe,MaTK,HinhMenu,DiaChiShop,MoTa")] Shop shop)
+        public ActionResult Edit([Bind(Include = "MaShop,TenShop,DanhGia,TinhTrang,SoLuongSanPham,DoanhThu,AnhBia,AnhDaiDien,AnhThucTe,MaTK")] Shop shop)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +94,7 @@ namespace Shopee_Food.Areas.Admin.Controllers
             return View(shop);
         }
 
-        // GET: Admin/Shops/Delete/5
+        // GET: Admin/Shop/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -109,7 +109,7 @@ namespace Shopee_Food.Areas.Admin.Controllers
             return View(shop);
         }
 
-        // POST: Admin/Shops/Delete/5
+        // POST: Admin/Shop/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

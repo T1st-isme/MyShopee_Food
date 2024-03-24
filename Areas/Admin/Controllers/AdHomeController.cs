@@ -1,6 +1,7 @@
 ﻿using Shopee_Food.App_Start;
 using Shopee_Food.Areas.Admin.Pattern.ProductAD;
 using Shopee_Food.Models;
+using Shopee_Food.Pattern.UserAuthenticationService;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -9,12 +10,14 @@ namespace Shopee_Food.Areas.Admin.Controllers
 {
     public class AdHomeController : Controller
     {
+        public IUserAuthenticationService _userAuthService;
         public IProductADRepository _productADRepository;
         private DBShopeeFoodEntities db = new DBShopeeFoodEntities();
 
         public AdHomeController()
         {
             this._productADRepository = new ProductADRepository(new DBShopeeFoodEntities());
+            this._userAuthService = new UserAuthenticationService(new DBShopeeFoodEntities());
         }
 
         [AdminAuth(MaCV = 1)]
@@ -40,18 +43,19 @@ namespace Shopee_Food.Areas.Admin.Controllers
                 return View();
             }
 
-            var mapTK = new map.mapTaiKhoan().ChiTiet(taiKhoan, passWord);
+            // Sử dụng proxy để kiểm tra đăng nhập
+            var authenticatedUser = _userAuthService.Authenticate(taiKhoan, passWord);
 
-            if (mapTK == null)
+            if (authenticatedUser == null)
             {
                 ViewBag.Error = "Tài khoản hoặc mật khẩu không đúng";
                 ViewBag.TaiKhoan = taiKhoan;
                 return View();
             }
 
-            Session["user"] = mapTK;
+            Session["user"] = authenticatedUser;
 
-            return Redirect("/Admin/AdHome");
+            return RedirectToAction("Index", "AdHome");
         }
 
         public ActionResult Logout()
