@@ -40,12 +40,18 @@ namespace Shopee_Food.Controllers
         {
             var builder = new ProductBuilder(db.SanPhams);
             // Tiếp tục logic của phương thức Index
-            IQueryable<SanPham> query = db.SanPhams.Include(s => s.Loai);
+            IQueryable<SanPham> query = db.SanPhams.Include(s => s.DanhMuc);
             // Khai báo biến queryBuilder kiểu IProductQueryBuilder
             IProductBuilder queryBuilder = builder;
+            // Decorate
+            foreach (dynamic product in query)
+            {
+                var moTaDecorator = new TooltipDecorator(product, product.MaSP);
+                product.MoTa = moTaDecorator.MoTa;
+            }
             // Apply filters
             if (builder != null)
-            {
+            { 
                 //queryBuilder = queryBuilder.ByCategory(category);
 
                 if (minPrice.HasValue || maxPrice.HasValue)

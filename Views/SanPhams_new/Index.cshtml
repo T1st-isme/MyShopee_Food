@@ -29,47 +29,43 @@
         <th>
             @Html.DisplayNameFor(model => model.DanhMuc.TenDanhMuc)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DanhMuc1.TenDanhMuc)
-        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.Shop.TenShop)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenSP)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Loai)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DonGia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Soluongdaban)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Soluongton)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DanhMuc.TenDanhMuc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DanhMuc1.TenDanhMuc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Shop.TenShop)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MaSP }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MaSP }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MaSP })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenSP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Loai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DonGia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Soluongdaban)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Soluongton)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DanhMuc.TenDanhMuc)
+            </td>
 
+            <td>
+                @Html.DisplayFor(modelItem => item.Shop.TenShop)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MaSP }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MaSP }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MaSP })
+            </td>
+        </tr>
+    }
 </table>

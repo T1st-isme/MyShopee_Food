@@ -26,7 +26,7 @@
 
     .product-imitation {
         text-align: center;
-        padding: 90px 0;
+        padding: 50px 0;
         background-color: #f8f8f9;
         color: #bebec3;
         font-weight: 600;
@@ -94,6 +94,7 @@
         .product-name:hover,
         .product-name:focus {
             color: #1ab394;
+            text-decoration: none;
         }
 
     .product-price {
@@ -109,6 +110,7 @@
 
     .product-detail .ibox-content {
         padding: 30px 30px 50px 30px;
+        border-radius: 10rem;
     }
 
     .image-imitation {
@@ -173,6 +175,7 @@
         border-image: none;
         border-style: solid solid none;
         border-width: 1px 0;
+        border-radius: 10px 10px 10px 10px;
     }
 
     .ibox-footer {
@@ -203,7 +206,7 @@
             <div class="col-md-3">
                 <a href="/Shops_new/Details/@item.MaShop">
                     <div class="ibox">
-                        <div class="ibox-content product-box" style="width:auto; height:auto">
+                        <div class="ibox-content product-box" style="width:auto; height:auto" title="@item.MoTa">
                             <div class="product-imitation">
                                 <img width="200" height="200" src="~/Content/images/@item.HinhSP">
                             </div>
