@@ -29,7 +29,7 @@ namespace Shopee_Food.Areas.Admin.Pattern.UserFacade
             existingUser.SDT = user.SDT;
             existingUser.Email = user.Email;
             existingUser.GioiTinh = user.GioiTinh;
-            
+
             // Cập nhật các trường thông tin khác nếu có
 
             _db.SaveChanges();

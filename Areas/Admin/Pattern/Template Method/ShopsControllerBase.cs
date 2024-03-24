@@ -25,7 +25,7 @@ namespace Shopee_Food.Areas.Admin.Pattern.Template_Method
 
         [HttpPost]
         [Route("Admin/Shops/Create")]
-        public  ActionResult Create(Shop shop)
+        public ActionResult Create(Shop shop)
         {
             if (ModelState.IsValid)
             {
@@ -35,7 +35,7 @@ namespace Shopee_Food.Areas.Admin.Pattern.Template_Method
             ViewBag.MaTK = new SelectList(_db.Users, "MaTK", "TaiKhoan", shop.MaTK);
             return View(shop);
         }
-        
+
 
         [HttpGet]
         public ActionResult Edit(string id)
